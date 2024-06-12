@@ -3,7 +3,8 @@ import React from 'react'
 function CreateAcc() {
   return (
    <>
-   
+         
+         <h3 className='font-bold  text-2xl'>Create Account.</h3>
    <form className='mt-10 flex flex-wrap gap-8'>
     <div className='border border-[#9999999f] relative w-[87%] xl:w-80 flex flex-col rounded-md  '>
       <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>First name</label>
