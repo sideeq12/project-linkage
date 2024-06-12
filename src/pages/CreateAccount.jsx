@@ -16,8 +16,8 @@ function CreateAccount() {
        absolute xl:relative xl:ml-auto bg-white rounded-tl-xl 
       xl:rounded-tr-none xl:rounded-bl-xl h-[40rem] xl:h-full pt-10 px-4 xl:px-14'>
 
-     {/* <CreateAcc /> */}
-     <SignIn />
+     <CreateAcc />
+     {/* <SignIn /> */}
      {/* <SignChoice /> */}
      {/* <Verification /> */}
      {/* <Forgotpassword /> */}
