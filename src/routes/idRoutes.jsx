@@ -4,6 +4,7 @@ import CreateAccount from '../pages/CreateAccount';
 import Forgotpassword from '../pages/forgotpassword'
 import SignChoice from '../pages/signChoice';
 import Login from '../pages/login';
+import Verification from '../pages/verification';
 
 const IndexRoute = () => {
   return (
@@ -15,7 +16,7 @@ const IndexRoute = () => {
         <Route exact path="/login"  element={<Login/>} />
         <Route path="/resetpassword"  element={<Forgotpassword/>} />
         <Route exact path="/signChoice"  element={<CreateAccount/>} />
-        <Route path="/forgotpassword"  element={<Forgotpassword/>} />
+        <Route path="/verification"  element={<Verification/>} />
       </Routes>
     </Router>
   )
