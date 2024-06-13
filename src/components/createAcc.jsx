@@ -2,7 +2,7 @@ import React from 'react'
 
 function CreateAcc() {
   return (
-   <>
+   <div>
          
          <h3 className='font-bold  text-2xl'>Create Account.</h3>
    <form className='mt-10 flex flex-wrap gap-8'>
@@ -30,7 +30,7 @@ function CreateAcc() {
     </form>
     
     <div className='mt-2'>Already have an account? <a href="/login" className='font-semibold text-[#010080]'>Login</a>
-      </div></>
+      </div></div>
   )
 }
 

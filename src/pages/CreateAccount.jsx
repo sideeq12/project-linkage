@@ -1,11 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CreateAcc from '../components/createAcc'
-import SignIn from '../components/signIn'
-import SignChoice from '../components/signChoice'
-import Verification from '../components/verification'
-import Forgotpassword from '../components/forgotpassword'
-import ResetPassword from '../components/resetPassword'
 function CreateAccount() {
+  const [segmentDisplay, setDisplay] = useState({
+    login : false, createAccount : false, SignChoice : true, forgotPassword : false , verify : false
+  })
   return (
     <div className=' bg-grad relative h-screen w-screen 
      flex flex-col xl:flex-row '>
@@ -16,12 +14,7 @@ function CreateAccount() {
        absolute xl:relative xl:ml-auto bg-white rounded-tl-xl 
       xl:rounded-tr-none xl:rounded-bl-xl h-[40rem] xl:h-full pt-10 px-4 xl:px-14'>
 
-     <CreateAcc />
-     {/* <SignIn /> */}
-     {/* <SignChoice /> */}
-     {/* <Verification /> */}
-     {/* <Forgotpassword /> */}
-     {/* <ResetPassword /> */}
+    <CreateAcc />
       </div>
     </div>
   )
