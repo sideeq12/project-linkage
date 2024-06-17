@@ -60,7 +60,7 @@ const MOU = () => {
       </div>
       <div className='lg:pl-14 lg:pt-3 bg-[#F1F1F1] w-[100vw] h-[92vh] no-scrollbar overflow-auto  lg:w-[80vw]'>
         <img src='oaulogo.svg'  className='ml-auto mr-20 hidden lg:block'/>
-        <div className='w-[100vw] z-20 lg:hidden absolute bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
+        <div className='w-[100vw] z-20 lg:hidden  fixed  bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
        to-[#010080]'>
 
 <ul className='flex w-full justify-around text-center  text-sm'>
