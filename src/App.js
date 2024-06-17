@@ -6,9 +6,7 @@ import IndexRoute from './routes/idRoutes';
 
 function App() {
   return (
-    <div className="">
  <IndexRoute />
-    </div>
   );
 }
 
