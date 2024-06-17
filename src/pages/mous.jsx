@@ -21,19 +21,19 @@ const MOU = () => {
     <div className='mt-4'>
         <ul className='flex flex-col space-y-3 text-sm'>
             <li>
-                <Link className='flex text-white gap-2'>
+                <Link to="/dashboard" className='flex text-white gap-2'>
                 <MdDashboard  size={24} color='#fff'/>
                 <span>Dashboard</span>
                 </Link>
             </li>
             <li>
-                <Link className='flex text-white gap-2'>
+                <Link to="/users" className='flex text-white gap-2'>
                 <FaUsers  size={24} color='#fff'/>
                 <span>Users</span>
                 </Link>
             </li>
             <li>
-                <Link className='flex text-white gap-2'>
+                <Link to="/mou" className='flex text-white gap-2'>
                 <FaDatabase  size={24} color='#fff'/>
                 <span>MOU's</span>
                 </Link>

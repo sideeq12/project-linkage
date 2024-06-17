@@ -44,7 +44,7 @@ const Dashboard = () => {
                 </Link>
             </li>
             <li>
-                <Link className='flex text-white gap-2'>
+                <Link to="/mou" className='flex text-white gap-2'>
                 <FaDatabase  size={24} color='#fff'/>
                 <span>MOU's</span>
                 </Link>
