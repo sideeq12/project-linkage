@@ -18,6 +18,10 @@ const list =  [{ name : "OAU reports",imageType : "image File", size : "12mb"},
      { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
      { name : "OAU reports", imageType : "image File", size : "12mb"},{ name : "OAU reports",imageType : "image File", size : "12mb"},
      { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
+     { name : "OAU reports", imageType : "image File", size : "12mb"},{ name : "OAU reports",imageType : "image File", size : "12mb"},
+     { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
+     { name : "OAU reports", imageType : "image File", size : "12mb"},{ name : "OAU reports",imageType : "image File", size : "12mb"},
+     { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
      { name : "OAU reports", imageType : "image File", size : "12mb"}]
 
 const Dashboard = () => {
@@ -93,21 +97,21 @@ const Dashboard = () => {
                 <span className=''>Upload MOU</span>
             </div>
         </div>
-        <div className='mt-10 h-72 overflow-scroll'>
+        <div className='mt-10 '>
     <h3 className='text-xl mb-4  font-semibold'>Recently Uploaded</h3>
-    <div>
+    <div className='h-64 no-scrollbar overflow-auto'>
         <ul>
             {list.map((listData, idx)=><li key={idx} className='bg-white py-2  px-3 mb-2
-            rounded-lg flex justify-between px-4 mr-20'>
+            rounded-lg flex justify-between  mr-20'>
                   <FaFileShield size={24} color='#211A79' />
                 <span>{listData.name}</span>
                 <span>{listData.imageType}</span>
                 <span>{listData.size}</span>
             <div className="flex gap-5">
-            <div className='text-[#211A79] p-1 border border-[#211A79] rounded-md'>
+            <div className='text-[#211A79] p-1 border hover:cursor-pointer border-[#211A79] rounded-md'>
                 <FaShare />
             </div>
-            <div className='text-[#211A79] p-1 border border-[#211A79] rounded-md'>
+            <div className='text-[#211A79] p-1 border hover:cursor-pointer border-[#211A79] rounded-md'>
                 <MdDelete color='red' />
             </div>
             </div>
