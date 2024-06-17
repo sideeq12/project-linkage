@@ -92,7 +92,7 @@ const Users = () => {
             </li>
         </ul>
       </div>
-      <div className='lg:pl-14 lg:pt-3 bg-[#F1F1F1] h-full w-full lg:w-[80vw] overflow-hidden'>
+      <div className='lg:pl-14 lg:pt-3 bg-[#F1F1F1]  h-[92vh] w-full lg:w-[80vw] overflow-hidden'>
       <div className='flex gap-2 lg:justify-between px-4 py-4 lg:p-0  lg:pr-20 bg-gradient-to-r from-[#FECC48]
        to-[#010080] lg:bg-none'>
         <img src="iconstest.svg" className='w-24'/>
