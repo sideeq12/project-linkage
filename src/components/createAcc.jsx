@@ -1,22 +1,29 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 function CreateAcc() {
+  const navigate = useNavigate()
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  navigate("/verification")
+  }
+
   return (
    <div className='mx-auto xl:mx-0 text-center'>
-         
          <h3 className='font-bold mx-auto xl:mx-0 text-2xl'>Create Account.</h3>
-   <form className='mt-10 flex mx-auto  justify-center flex-wrap gap-8'>
+   <form className='mt-10 flex mx-auto  justify-center flex-wrap gap-8'  onSubmit={handleSubmit}>
     <div className='border border-[#9999999f] relative w-[87%] xl:w-80 flex flex-col rounded-md  '>
       <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>First name</label>
       <input type='text' placeholder='' className='outline-none h-12 pl-4'  />
     </div>
     <div className='border border-[#9999999f] relative w-[87%] xl:w-80 flex flex-col rounded-md  '>
-      <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>First name</label>
+      <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>Last name</label>
       <input type='text' placeholder='' className='outline-none h-12 pl-4'  />
     </div>
     <div className='border border-[#9999999f] relative w-[87%] flex flex-col rounded-md   '>
       <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>Email Adresse</label>
-      <input type='text' placeholder='' className='outline-none h-12 pl-4'  />
+      <input type='email' placeholder='' className='outline-none h-12 pl-4'  />
     </div>
     <div className='border border-[#9999999f] relative w-[87%] flex flex-col rounded-md   '>
       <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>Password</label>

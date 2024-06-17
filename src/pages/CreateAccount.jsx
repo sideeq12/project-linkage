@@ -5,7 +5,7 @@ function CreateAccount() {
     login : false, createAccount : false, SignChoice : true, forgotPassword : false , verify : false
   })
   return (
-    <div className=' bg-grad relative h-screen w-screen 
+    <div className='bg-grad relative h-screen w-screen 
      flex flex-col xl:flex-row '>
       <div className='w-full xl:w-[34vw] text-center pt-10 xl:pt-20'> 
          <img src='OAU_linkage.png' className='w-40 xl:w-[80%] mx-auto' />
