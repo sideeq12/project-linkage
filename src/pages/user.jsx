@@ -56,7 +56,7 @@ const Users = () => {
         </ul>
     </div>
       </div>
-      <div className='w-[100vw] mb-10 z-20 lg:hidden  fixed  bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
+      <div className='w-[100vw]  z-20 lg:hidden  fixed  bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
        to-[#010080]'>
 
 <ul className='flex w-full justify-around text-center  text-sm'>

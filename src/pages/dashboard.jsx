@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MdDashboard } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { FaUsers } from "react-icons/fa";
@@ -25,6 +25,7 @@ const list =  [{ name : "OAU reports",imageType : "image File", size : "12mb"},
      { name : "OAU reports", imageType : "image File", size : "12mb"}]
 
 const Dashboard = () => {
+    const [view, setUploadview] = useState(false)
   return (
     <div className='h-[100vh] w-[100vw] overflow-hidden relative lg:flex'>
       <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48]
@@ -106,7 +107,8 @@ const Dashboard = () => {
             </li>
         </ul>
       </div>
-      <div className='w-full lg:w-[80vw] bg-[#F1F1F1] h-[92vh] no-scrollbar overflow-auto  lg:pt-10 lg:pl-20'>
+      <div className='w-full lg:w-[80vw] bg-[#F1F1F1] h-[92vh] lg:h-full no-scrollbar overflow-auto  lg:pt-10 lg:pl-20'>
+    { view ? <Upload /> : <>
         <div className='flex gap-2 lg:justify-between px-4 py-4 lg:p-0  lg:pr-20 bg-gradient-to-r from-[#FECC48]
        to-[#010080] lg:bg-none'>
         <img src="iconstest.svg" className='w-24'/>
@@ -130,7 +132,7 @@ const Dashboard = () => {
                 <FaComputer  className='mx-auto' size={30}/>
                 <span className=''>32</span>
             </div>
-            <div className='text-white w-1/3 lg:py-5 lg:w-1/4 bg-[#211A79] hover:cursor-pointer hover:bg-white
+            <div onClick={()=>{setUploadview(!view)}} className='text-white w-1/3 lg:py-5 lg:w-1/4 bg-[#211A79] hover:cursor-pointer hover:bg-white
             hover:text-[#211A79] hover:border-2 hover:border-[#211A79]  rounded-lg drop-shadow-md text-center'>
 
                 <FaCloudUploadAlt  className='mx-auto mt-3' size={30}/>
@@ -159,6 +161,7 @@ const Dashboard = () => {
         </ul>
     </div>
 </div>
+</>}
       </div>
 
     </div>
@@ -168,3 +171,42 @@ const Dashboard = () => {
 export default Dashboard
 
 
+
+const Upload = () =>{
+    return(
+        <div className='pt-4 w-fit mx-auto lg:mx-0 border'>
+            <div className='bg-[#211A79] text-white p-10 mx-auto lg:mx-0 w-fit'>
+                <input type="file" placeholder='upload file'/>
+            </div>
+            <div>
+                <form className='flex flex-wrap gap-8 mt-10 mx-auto lg:mx-0 font-semibold w-5/6'>
+                    <div>
+                        <label for="title" className='text-sm  mb-2'>Title</label>  <br />
+                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                    </div>
+                    <div>
+                        <label for="title" className='text-sm  mb-2'>Collaboration Partner</label>  <br />
+                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                    </div>
+                    <div>
+                        <label for="title" className='text-sm  mb-2'>Year of commencement</label>  <br />
+                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                    </div>
+                    <div>
+                        <label for="title" className='text-sm  mb-2'>Types of Linkage</label>  <br />
+                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                    </div>
+                    <div>
+                        <label for="title" className='text-sm  mb-2'>Status</label>  <br />
+                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                    </div>
+                    <div>
+                        <label for="title" className='text-sm  mb-2'>Duation</label>  <br />
+                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                    </div>
+                    <button className='border-0 rounded-none mx-auto lg:mx-0 text-white w-[80%] py-3  bg-[#211A79]' type='submit' >Submit</button>
+                </form>
+            </div>
+        </div>
+    )
+}
