@@ -70,7 +70,7 @@ const Dashboard = () => {
         </ul>
     </div>
       </div>
-      <div className='w-[100vw] lg:hidden absolute bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
+      <div className='w-[100vw] lg:hidden fixed z-20 bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
        to-[#010080]'>
 
 <ul className='flex w-full justify-around text-center  text-sm'>
