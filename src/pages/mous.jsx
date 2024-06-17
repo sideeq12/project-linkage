@@ -15,8 +15,8 @@ const files = [{filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {file
 
 const MOU = () => {
   return (
-    <div className='h-[100vh] w-[100vw] flex'>
-      <div className='w-[20vw] pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
+    <div className='h-[100vh] relative w-[100vw] lg:flex'>
+      <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
 <img src="iconstest.svg"  className='h-2\16 mb-16' />
     <div className='mt-4'>
         <ul className='flex flex-col space-y-3 text-sm'>
@@ -58,9 +58,51 @@ const MOU = () => {
         </ul>
     </div>
       </div>
-      <div className='pl-14 pt-3 bg-[#F1F1F1] w-[80vw] overflow-hidden'>
-        <img src='oaulogo.svg'  className='ml-auto mr-20'/>
-            <div className='flex'>
+      <div className='lg:pl-14 lg:pt-3 bg-[#F1F1F1] w-[100vw] h-full lg:w-[80vw] overflow-hidden'>
+        <img src='oaulogo.svg'  className='ml-auto mr-20 hidden lg:block'/>
+        <div className='w-[100vw] z-20 lg:hidden absolute bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
+       to-[#010080]'>
+
+<ul className='flex w-full justify-around text-center  text-sm'>
+            <li>
+                <Link to="/dashboard" className=' text-white gap-2'>
+                <MdDashboard  size={24} color='#fff'  className='mx-auto' />
+                <span>Dashboard</span>
+                </Link>
+            </li>
+            <li>
+                <Link to="/users" className=' text-white gap-2'>
+                <FaUsers  size={24} color='#fff'  className='mx-auto' />
+                <span>Users</span>
+                </Link>
+            </li>
+            <li>
+                <Link to="/mou" className=' text-white gap-2'>
+                <FaDatabase  size={24} color='#fff'  className='mx-auto' />
+                <span>MOU's</span>
+                </Link>
+            </li>
+            <li>
+                <Link to="/mou" className=' text-white gap-2'>
+                <IoMdSettings  size={24} color='#fff' className='mx-auto' />
+                <span>Setting</span>
+                </Link>
+            </li>
+            <li>
+                <Link to="/mou" className=' text-white gap-2'>
+                <FaDatabase  size={24} color='#fff'  className='mx-auto' />
+                <span>MOU's</span>
+                </Link>
+            </li>
+        </ul>
+      </div>
+      <div className='flex gap-2 lg:justify-between px-4 py-4 lg:p-0  lg:pr-20 bg-gradient-to-r from-[#FECC48]
+       to-[#010080] lg:bg-none'>
+        <img src="iconstest.svg" className='w-24'/>
+        <h3 className='lg:text-2xl font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin <br/> Biola James</h3>
+        <img src='/oaulogo.svg' className='w-12 ml-auto' />
+        </div>
+            <div className='flex px-4 mt-4 lg:mt-0'>
                 <input type="text" placeholder='Search ...' className='outline-none pl-8 border h-12 w-[70%]'/>
                <div className='bg-white p-4 ml-5 rounded-md  text-black'>
                <FaSearch  />
@@ -69,9 +111,9 @@ const MOU = () => {
                 <FaSearchPlus />
                </div>
             </div>
-            <div className='flex mt-10 gap-8 flex-wrap h-[28rem] no-scrollbar overflow-auto'>
+            <div className='flex ml-6 mt-10 gap-8 flex-wrap  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
                {files.map((file,idx)=> <div className='text-center'>
-                <div className='drop-shadow-lg p-16 bg-white text-[#010080] hover:bg-[#010080]
+                <div className='drop-shadow-lg p-6 lg:p-16 bg-white text-[#010080] hover:bg-[#010080]
                 hover:cursor-pointer hover:text-white'>
                     <FaFileContract size={40} />
                 </div>
