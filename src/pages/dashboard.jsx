@@ -106,7 +106,7 @@ const Dashboard = () => {
             </li>
         </ul>
       </div>
-      <div className='w-full lg:w-[80vw] bg-[#F1F1F1] h-full  lg:pt-10 lg:pl-20'>
+      <div className='w-full lg:w-[80vw] bg-[#F1F1F1] h-[92vh] no-scrollbar overflow-auto  lg:pt-10 lg:pl-20'>
         <div className='flex gap-2 lg:justify-between px-4 py-4 lg:p-0  lg:pr-20 bg-gradient-to-r from-[#FECC48]
        to-[#010080] lg:bg-none'>
         <img src="iconstest.svg" className='w-24'/>
@@ -139,7 +139,7 @@ const Dashboard = () => {
         </div>
         <div className='mt-10 '>
     <h3 className='text-xl mb-4 ml-4 font-semibold'>Recently Uploaded</h3>
-    <div className='h-[28rem] lg:h-64 no-scrollbar overflow-auto'>
+    <div className=' lg:h-64 '>
         <ul>
             {list.map((listData, idx)=><li key={idx} className='bg-white py-2  px-3 mb-2
             rounded-lg flex justify-between mx-4 lg:mr-20'>
