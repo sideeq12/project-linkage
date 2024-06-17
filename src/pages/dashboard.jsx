@@ -26,8 +26,9 @@ const list =  [{ name : "OAU reports",imageType : "image File", size : "12mb"},
 
 const Dashboard = () => {
   return (
-    <div className='h-[100vh] w-[100vw] flex'>
-      <div className='w-[20vw] pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
+    <div className='h-[100vh] w-[100vw] overflow-hidden relative lg:flex'>
+      <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48]
+       to-[#010080]'>
 <img src="/iconstest.svg"  className='h-16 mb-16' alt='logo'/>
     <div className='mt-4'>
         <ul className='flex flex-col space-y-3 text-sm'>
@@ -69,28 +70,67 @@ const Dashboard = () => {
         </ul>
     </div>
       </div>
-      <div className='w-[80vw] bg-[#F1F1F1] pt-10 pl-20'>
-        <div className='flex justify-between pr-20'>
-        <h3 className='text-2xl font-bold text-[#211A79]'>Welcome Admin</h3>
-        <img src='/oaulogo.svg' />
+      <div className='w-[100vw] lg:hidden absolute bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
+       to-[#010080]'>
+
+<ul className='flex w-full justify-around text-center  text-sm'>
+            <li>
+                <Link to="/dashboard" className=' text-white gap-2'>
+                <MdDashboard  size={24} color='#fff'  className='mx-auto' />
+                <span>Dashboard</span>
+                </Link>
+            </li>
+            <li>
+                <Link to="/users" className=' text-white gap-2'>
+                <FaUsers  size={24} color='#fff'  className='mx-auto' />
+                <span>Users</span>
+                </Link>
+            </li>
+            <li>
+                <Link to="/mou" className=' text-white gap-2'>
+                <FaDatabase  size={24} color='#fff'  className='mx-auto' />
+                <span>MOU's</span>
+                </Link>
+            </li>
+            <li>
+                <Link to="/mou" className=' text-white gap-2'>
+                <IoMdSettings  size={24} color='#fff' className='mx-auto' />
+                <span>Setting</span>
+                </Link>
+            </li>
+            <li>
+                <Link to="/mou" className=' text-white gap-2'>
+                <FaDatabase  size={24} color='#fff'  className='mx-auto' />
+                <span>MOU's</span>
+                </Link>
+            </li>
+        </ul>
+      </div>
+      <div className='w-full lg:w-[80vw] bg-[#F1F1F1] h-full  lg:pt-10 lg:pl-20'>
+        <div className='flex gap-2 lg:justify-between px-4 py-4 lg:p-0  lg:pr-20 bg-gradient-to-r from-[#FECC48]
+       to-[#010080] lg:bg-none'>
+        <img src="iconstest.svg" className='w-24'/>
+        <h3 className='lg:text-2xl font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin <br/> Biola James</h3>
+        <img src='/oaulogo.svg' className='w-12 ml-auto' />
         </div>
-        <div className='flex w-full justify-between pr-20 mt-10 font-semibold text-[#211A79]'>
-            <div className='bg-white  w-1/6  py-5  rounded-lg drop-shadow-md text-center'>
+        <div className='flex w-full flex-wrap 
+        gap-10 justify-center lg:justify-between pr-4 lg:pr-20 mt-10 font-semibold text-[#211A79]'>
+            <div className='bg-white w-1/3 py-2  lg:w-1/6 text-sm lg:text-base  lg:py-5  rounded-lg drop-shadow-md text-center'>
                 <h4>Total MOUs</h4>
                 <FaFileShield  className='mx-auto' size={30}/>
                 <span className=''>32</span>
             </div>
-            <div className='bg-white py-5 w-1/6  rounded-lg drop-shadow-md text-center'>
+            <div className='bg-white w-1/3 lg:py-5 lg:w-1/6  rounded-lg drop-shadow-md text-center'>
                 <h4>Total Users</h4>
                 <FaUserFriends   className='mx-auto' size={30}/>
                 <span className=''>32</span>
             </div>
-            <div className='bg-white  py-5 w-1/6   rounded-lg drop-shadow-md text-center'>
+            <div className='bg-white w-1/3 px-2 lg:py-5 lg:w-1/6   rounded-lg drop-shadow-md text-center'>
                 <h4>New User request</h4>
                 <FaComputer  className='mx-auto' size={30}/>
                 <span className=''>32</span>
             </div>
-            <div className='text-white  py-5 w-1/4 bg-[#211A79] hover:cursor-pointer hover:bg-white
+            <div className='text-white w-1/3 lg:py-5 lg:w-1/4 bg-[#211A79] hover:cursor-pointer hover:bg-white
             hover:text-[#211A79] hover:border-2 hover:border-[#211A79]  rounded-lg drop-shadow-md text-center'>
 
                 <FaCloudUploadAlt  className='mx-auto mt-3' size={30}/>
@@ -98,11 +138,11 @@ const Dashboard = () => {
             </div>
         </div>
         <div className='mt-10 '>
-    <h3 className='text-xl mb-4  font-semibold'>Recently Uploaded</h3>
-    <div className='h-64 no-scrollbar overflow-auto'>
+    <h3 className='text-xl mb-4 ml-4 font-semibold'>Recently Uploaded</h3>
+    <div className='h-[28rem] lg:h-64 no-scrollbar overflow-auto'>
         <ul>
             {list.map((listData, idx)=><li key={idx} className='bg-white py-2  px-3 mb-2
-            rounded-lg flex justify-between  mr-20'>
+            rounded-lg flex justify-between mx-4 lg:mr-20'>
                   <FaFileShield size={24} color='#211A79' />
                 <span>{listData.name}</span>
                 <span>{listData.imageType}</span>
