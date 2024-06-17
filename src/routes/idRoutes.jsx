@@ -5,9 +5,9 @@ import Forgotpassword from '../pages/forgotpassword'
 import SignChoice from '../pages/signChoice';
 import Login from '../pages/login';
 import Verification from '../pages/verification';
-import Users from '../pages/users';
+import Users from '../pages/user';
 import Dashboard from '../pages/dashboard';
-import MOU from '../pages/mou';
+import MOU from '../pages/mous';
 import Setting from '../pages/setting';
 
 const IndexRoute = () => {
@@ -21,10 +21,9 @@ const IndexRoute = () => {
         <Route exact path="/login"  element={<Login/>} />
         <Route path="/forgotpassword"  element={<Forgotpassword/>} />
         <Route path="/resetpassword"  element={<Forgotpassword/>} />
-        
         <Route path="/dashboard"  element={<Dashboard/>} />
         <Route path="/users"  element={<Users/>} />
-        <Route path="/dashboard/mou"  element={<MOU/>} />
+        <Route path="/mou"  element={<MOU/>} />
         <Route path="/dashboard/setting"  element={<Setting/>} />
       </Routes>
   </Router>

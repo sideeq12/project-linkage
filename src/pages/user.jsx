@@ -8,7 +8,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 
 
-const MOU = () => {
+const Users = () => {
   return (
     <div className='h-[100vh] w-[100vw] flex'>
       <div className='w-[18vw] pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
@@ -59,6 +59,6 @@ const MOU = () => {
   )
 }
 
-export default MOU
+export default Users
 
 

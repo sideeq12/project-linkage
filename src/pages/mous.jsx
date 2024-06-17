@@ -5,10 +5,15 @@ import { FaUsers } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { FaSignOutAlt } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { FaSearchPlus } from "react-icons/fa";
+import { FaFileContract } from "react-icons/fa";
 
+const files = [{filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"},
+     {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"},
+     {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}]
 
-
-const Users = () => {
+const MOU = () => {
   return (
     <div className='h-[100vh] w-[100vw] flex'>
       <div className='w-[20vw] pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
@@ -53,12 +58,32 @@ const Users = () => {
         </ul>
     </div>
       </div>
-      <div>users</div>
+      <div className='pl-14 pt-3 bg-[#F1F1F1] w-[80vw] overflow-hidden'>
+        <img src='oaulogo.svg'  className='ml-auto mr-20'/>
+            <div className='flex'>
+                <input type="text" placeholder='Search ...' className='outline-none pl-8 border h-12 w-[70%]'/>
+               <div className='bg-white p-4 ml-5 rounded-md  text-black'>
+               <FaSearch  />
+               </div>
+               <div className='bg-white p-4 rounded-md  ml-6 text-black'>
+                <FaSearchPlus />
+               </div>
+            </div>
+            <div className='flex mt-10 gap-8 flex-wrap h-[28rem] no-scrollbar overflow-auto'>
+               {files.map((file,idx)=> <div className='text-center'>
+                <div className='drop-shadow-lg p-16 bg-white text-[#010080] hover:bg-[#010080]
+                hover:cursor-pointer hover:text-white'>
+                    <FaFileContract size={40} />
+                </div>
+                <span className='font-semibold text-center mt-2 text-sm'>{file.filesname}</span>
+               </div>)}
+            </div>
+      </div>
 
     </div>
   )
 }
 
-export default Users
+export default MOU
 
 
