@@ -24,7 +24,7 @@ function SignIn() {
       <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>Password</label>
       <input type='text' placeholder='' className='outline-none h-12 pl-4'  />
     </div>
-    <a href='/dashboard'  className='w-full h-12 text-white bg-[#010080]'>Log in</a>
+    <a href='/dashboard'  className='w-full h-12 text-white bg-[#010080] hidden'>Log in</a>
     <div className='mt-2 flex gap-20'>
         <div>
             <input type='checkbox' name='checkbox' id='checkbox' /> <label for="checkbox">Remember me.</label>

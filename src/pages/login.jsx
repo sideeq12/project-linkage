@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -6,6 +7,12 @@ function Login() {
   const [segmentDisplay, setDisplay] = useState({
     login : false, createAccount : false, SignChoice : true, forgotPassword : false , verify : false
   })
+  const navigate = useNavigate()
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  navigate("/dashboard")
+  }
+
   return (
     <div className=' bg-grad relative h-screen w-screen 
      flex flex-col xl:flex-row '>
@@ -19,7 +26,7 @@ function Login() {
         <>
          
         <h3 className='font-bold  text-2xl mx-auto w-fit'>Sign in.</h3>
-   <form className='mt-10 mx-auto flex flex-wrap gap-8 w-[87%]'>
+   <form className='mt-10 mx-auto flex flex-wrap gap-8 w-[87%] 'onSubmit={handleSubmit}>
     
     <div className='border border-[#9999999f] relative w-full flex flex-col rounded-md   '>
       <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>Email Adresse</label>

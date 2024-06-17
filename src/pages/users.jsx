@@ -11,7 +11,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 const Users = () => {
   return (
     <div className='h-[100vh] w-[100vw] flex'>
-      <div className='w-[18vw] pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
+      <div className='w-[20vw] pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
 <img src="iconstest.svg"  className='h-2\16 mb-16' />
     <div className='mt-4'>
         <ul className='flex flex-col space-y-3 text-sm'>

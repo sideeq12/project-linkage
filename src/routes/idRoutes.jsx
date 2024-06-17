@@ -23,7 +23,7 @@ const IndexRoute = () => {
         <Route path="/resetpassword"  element={<Forgotpassword/>} />
         
         <Route path="/dashboard"  element={<Dashboard/>} />
-        <Route path="/dashboard/users"  element={<Users/>} />
+        <Route path="/users"  element={<Users/>} />
         <Route path="/dashboard/mou"  element={<MOU/>} />
         <Route path="/dashboard/setting"  element={<Setting/>} />
       </Routes>
