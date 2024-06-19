@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { MdDashboard } from "react-icons/md";
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { FaUsers } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
@@ -25,6 +25,7 @@ const list =  [{ name : "OAU reports",imageType : "image File", size : "12mb"},
      { name : "OAU reports", imageType : "image File", size : "12mb"}]
 
 const Dashboard = () => {
+    const navigate = useNavigate()
     const [view, setUploadview] = useState(false)
   return (
     <div className='h-[100vh] w-[100vw] overflow-hidden relative lg:flex'>
@@ -117,17 +118,17 @@ const Dashboard = () => {
         </div>
         <div className='flex w-full flex-wrap 
         gap-10 justify-center lg:justify-between pr-4 lg:pr-20 mt-10 font-semibold text-[#211A79]'>
-            <div className='bg-white w-1/3 py-2  lg:w-1/6 text-sm lg:text-base  lg:py-5  rounded-lg drop-shadow-md text-center'>
+            <div  className='bg-white w-1/3 py-2  lg:w-1/6 text-sm lg:text-base  lg:py-5  rounded-lg drop-shadow-md text-center'>
                 <h4>Total MOUs</h4>
                 <FaFileShield  className='mx-auto' size={30}/>
                 <span className=''>32</span>
             </div>
-            <div className='bg-white w-1/3 lg:py-5 lg:w-1/6  rounded-lg drop-shadow-md text-center'>
+            <div onClick={()=>{navigate("/users")}} className='hover:cursor-pointer  bg-white w-1/3 lg:py-5 lg:w-1/6  rounded-lg drop-shadow-md text-center'>
                 <h4>Total Users</h4>
                 <FaUserFriends   className='mx-auto' size={30}/>
                 <span className=''>32</span>
             </div>
-            <div className='bg-white w-1/3 px-2 lg:py-5 lg:w-1/6   rounded-lg drop-shadow-md text-center'>
+            <div onClick={()=>{navigate("/request")}}  className='bg-white w-1/3 px-2 lg:py-5 lg:w-1/6   rounded-lg drop-shadow-md text-center'>
                 <h4>New User request</h4>
                 <FaComputer  className='mx-auto' size={30}/>
                 <span className=''>32</span>
