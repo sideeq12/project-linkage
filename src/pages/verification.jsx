@@ -15,8 +15,8 @@ const Verification = () => {
 <>
 {
     verified ?     <div className='text-center w-[70%] mx-auto'>
-    <img src='info.png' alt='loading page image for linkage'  className='mx-auto w-40 xl:w-fit' />
-   <h3 className='font-bold  text-2xl my-6'>Verifying...</h3>
+    <img src='spinner.gif' alt='loading page image for linkage'  className='mx-auto w-40 xl:w-fit' />
+   <h3 className='font-bold  text-2xl my-6 text-blue-800'>Verifying...</h3>
   <div className='text-[#5e5e5e]'>
   Please wait while LINKAGES verifies you.
   You can go about your daily business and check back later.
