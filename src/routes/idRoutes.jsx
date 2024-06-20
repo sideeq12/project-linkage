@@ -16,7 +16,7 @@ const IndexRoute = () => {
   <Router>
      
      <Routes>
-        <Route exact path="/"  element={<SignChoice/>} />
+        <Route exact path="/"  element={<CreateAccount/>} />
         <Route exact path="/create"  element={<CreateAccount/>} />
         <Route path="/verification"  element={<Verification/>} />
         <Route exact path="/login"  element={<Login/>} />
