@@ -128,7 +128,7 @@ const Dashboard = () => {
                 <FaUserFriends   className='mx-auto' size={30}/>
                 <span className=''>32</span>
             </div>
-            <div onClick={()=>{navigate("/request")}}  className='bg-white w-1/3 px-2 lg:py-5 lg:w-1/6   rounded-lg drop-shadow-md text-center'>
+            <div onClick={()=>{navigate("/request")}}  className='hover:cursor-pointer bg-white w-1/3 px-2 lg:py-5 lg:w-1/6   rounded-lg drop-shadow-md text-center'>
                 <h4>New User request</h4>
                 <FaComputer  className='mx-auto' size={30}/>
                 <span className=''>32</span>

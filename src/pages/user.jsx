@@ -26,7 +26,7 @@ const Users = () => {
                 </Link>
             </li>
             <li>
-                <Link to="" className='flex text-white gap-2'>
+                <Link to="/users" className='flex text-white gap-2'>
                 <FaUsers  size={24} color='#fff'/>
                 <span>Users</span>
                 </Link>

@@ -9,11 +9,9 @@ import { FaSearch } from "react-icons/fa";
 import { FaSearchPlus } from "react-icons/fa";
 import { FaFileContract } from "react-icons/fa";
 
-const files = [{filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"},
-     {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"},
-     {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}]
+const files = [{username : "OAU - Brazil", email :"adewaletest@gmailcom"}]
 
-const MOU = () => {
+const Request = () => {
   return (
     <div className='h-[100vh] relative w-[100vw] lg:flex'>
       <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
@@ -96,28 +94,22 @@ const MOU = () => {
             </li>
         </ul>
       </div>
-      <div className='flex gap-2 lg:justify-between px-4 py-4 lg:py-10   lg:pr-20 bg-gradient-to-r from-[#FECC48]
+      <div className='flex gap-2  lg:justify-between px-4 py-4 lg:p-0  lg:pr-20 bg-gradient-to-r from-[#FECC48]
        to-[#010080] lg:bg-none'>
-        <img src="iconstest.svg" className='w-24'/>
-        <h3 className='lg:text-2xl lg:ml-6 font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin <br/> Biola James</h3>
+        <h3 className='lg:text-2xl font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin <br/> Biola James</h3>
         <img src='/oaulogo.svg' className='w-12 ml-auto' />
         </div>
-            <div className='flex px-4 mt-4 lg:mt-0'>
-                <input type="text" placeholder='Search ...' className='outline-none pl-8 border h-12 w-[70%]'/>
-               <div className='bg-white p-4 ml-5 rounded-md  text-black'>
-               <FaSearch  />
-               </div>
-               <div className='bg-white p-4 rounded-md  ml-6 text-black'>
-                <FaSearchPlus />
-               </div>
-            </div>
+          
+          
             <div className='flex ml-6 mt-10 gap-8 flex-wrap  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
-               {files.map((file,idx)=> <div className='text-center'>
-                <div className='drop-shadow-lg p-6 lg:p-16 bg-white text-[#010080] hover:bg-[#010080]
-                hover:cursor-pointer hover:text-white'>
-                    <FaFileContract size={40} />
+               {files.map((file,idx)=> 
+               <div className='text-center p-4 w-fit bg-white drop-shadow-md h-fit'>
+                <img src='iconstest.svg' className='h-16 mx-auto'/>
+                <h3 className='font-semibold text-center'>Adewale Adeaga </h3>
+                <div className='flex gap-3  w-fit mx-auto'>
+                    <button className='px-4 py-2 bg-green-600 text-white'>Approve</button>
+                    <button className='px-4 py-2 bg-red-600 text-white'>Reject</button>
                 </div>
-                <span className='font-semibold text-center mt-2 text-sm'>{file.filesname}</span>
                </div>)}
             </div>
       </div>
@@ -126,6 +118,5 @@ const MOU = () => {
   )
 }
 
-export default MOU
-
+export default Request 
 

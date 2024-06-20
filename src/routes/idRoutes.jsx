@@ -9,6 +9,7 @@ import Users from '../pages/user';
 import Dashboard from '../pages/dashboard';
 import MOU from '../pages/mous';
 import Setting from '../pages/setting';
+import Request from '../pages/request';
 
 const IndexRoute = () => {
   return (
@@ -24,7 +25,7 @@ const IndexRoute = () => {
         <Route path="/dashboard"  element={<Dashboard/>} />
         <Route path="/users"  element={<Users/>} />
         <Route path="/mou"  element={<MOU/>} />
-        <Route path="/dashboard/setting"  element={<Setting/>} />
+        <Route path="/request"  element={<Request/>} />
       </Routes>
   </Router>
 
