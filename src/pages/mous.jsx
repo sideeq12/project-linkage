@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MdDashboard } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { FaUsers } from "react-icons/fa";
@@ -14,6 +14,23 @@ const files = [{filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {file
      {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}]
 
 const MOU = () => {
+    const [viewPdf, setPdfView ] = useState(false)
+
+
+    const PDFViewer = () => {
+        return (
+        <div className='h-screen relative'>
+              <iframe
+            src="/mou.pdf"
+            style={{ height: '100%', width: '100%', border: 'none' }}
+            title="PDF Preview"
+          />
+          <div className='bg-red-800 text-white py-2 px-6 
+          w-fit rounded-md mx-[45%] absolute bottom-20 z-50' onClick={()=>{setPdfView(false)}}>close</div>
+        </div>
+        );
+       };
+    
   return (
     <div className='h-[100vh] relative w-[100vw] lg:flex'>
       <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
@@ -59,6 +76,8 @@ const MOU = () => {
     </div>
       </div>
       <div className='lg:pl-14 lg:pt-3 bg-[#F1F1F1] w-[100vw] h-[92vh] no-scrollbar overflow-auto  lg:w-[80vw]'>
+    {viewPdf ? <PDFViewer /> :
+     <>
         <img src='oaulogo.svg'  className='ml-auto mr-20 hidden '/>
         <div className='w-[100vw] z-20 lg:hidden  fixed  bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
        to-[#010080]'>
@@ -112,19 +131,21 @@ const MOU = () => {
                </div>
             </div>
             <div className='flex ml-6 mt-10 gap-8 flex-wrap  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
-               {files.map((file,idx)=> <div className='text-center'>
+               {files.map((file,idx)=> <div  onClick={()=>{setPdfView(true)}} className='text-center'>
                 <div className='drop-shadow-lg p-6 lg:p-16 bg-white text-[#010080] hover:bg-[#010080]
                 hover:cursor-pointer hover:text-white'>
                     <FaFileContract size={40} />
                 </div>
                 <span className='font-semibold text-center mt-2 text-sm'>{file.filesname}</span>
                </div>)}
-            </div>
+            </div></>}
       </div>
 
     </div>
   )
 }
+
+
 
 export default MOU
 
