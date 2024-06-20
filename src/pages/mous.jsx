@@ -17,7 +17,7 @@ const MOU = () => {
   return (
     <div className='h-[100vh] relative w-[100vw] lg:flex'>
       <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
-<img src="iconstest.svg"  className='h-2\16 mb-16' />
+<img src="iconstest.jpg"  className='h-20 rounded-full w-20 mb-16' />
     <div className='mt-4'>
         <ul className='flex flex-col space-y-3 text-sm'>
             <li>
@@ -98,7 +98,7 @@ const MOU = () => {
       </div>
       <div className='flex gap-2 lg:justify-between px-4 py-4 lg:py-10   lg:pr-20 bg-gradient-to-r from-[#FECC48]
        to-[#010080] lg:bg-none'>
-        <img src="iconstest.svg" className='w-24'/>
+        <img src="iconstest.jpg" className='w-24 rounded-full'/>
         <h3 className='lg:text-2xl lg:ml-6 font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin <br/> Biola James</h3>
         <img src='/oaulogo.svg' className='w-12 ml-auto' />
         </div>

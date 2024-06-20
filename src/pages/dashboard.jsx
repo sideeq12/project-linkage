@@ -31,7 +31,7 @@ const Dashboard = () => {
     <div className='h-[100vh] w-[100vw] overflow-hidden relative lg:flex'>
       <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48]
        to-[#010080]'>
-<img src="/iconstest.svg"  className='h-16 mb-16' alt='logo'/>
+<img src="/iconstest.jpg"  className='h-20 w-20 mb-16 rounded-full' alt='logo'/>
     <div className='mt-4'>
         <ul className='flex flex-col space-y-3 text-sm'>
             <li>
@@ -112,17 +112,17 @@ const Dashboard = () => {
     { view ? <Upload /> : <>
         <div className='flex gap-2 lg:justify-between px-4 py-4 lg:p-0  lg:pr-20 bg-gradient-to-r from-[#FECC48]
        to-[#010080] lg:bg-none'>
-        <img src="iconstest.svg" className='w-24'/>
+        <img src="iconstest.jpg" className='w-24 rounded-full'/>
         <h3 className='lg:text-2xl font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin <br/> Biola James</h3>
         <img src='/oaulogo.svg' className='w-12 ml-auto' />
         </div>
         <div className='flex w-full flex-wrap 
         gap-10 justify-center lg:justify-between pr-4 lg:pr-20 mt-10 font-semibold text-[#211A79]'>
-            <div  className='bg-white w-1/3 py-2  lg:w-1/6 text-sm lg:text-base  lg:py-5  rounded-lg drop-shadow-md text-center'>
+            <a href='/mou'  className='bg-white w-1/3 py-2  lg:w-1/6 text-sm lg:text-base  lg:py-5  rounded-lg drop-shadow-md text-center'>
                 <h4>Total MOUs</h4>
                 <FaFileShield  className='mx-auto' size={30}/>
                 <span className=''>32</span>
-            </div>
+            </a>
             <div onClick={()=>{navigate("/users")}} className='hover:cursor-pointer  bg-white w-1/3 lg:py-5 lg:w-1/6  rounded-lg drop-shadow-md text-center'>
                 <h4>Total Users</h4>
                 <FaUserFriends   className='mx-auto' size={30}/>

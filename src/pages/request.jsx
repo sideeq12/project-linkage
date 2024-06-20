@@ -15,7 +15,7 @@ const Request = () => {
   return (
     <div className='h-[100vh] relative w-[100vw] lg:flex'>
       <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
-<img src="iconstest.svg"  className='h-2\16 mb-16' />
+<img src="iconstest.jpg"  className='h-20 rounded-full w-20 mb-16' />
     <div className='mt-4'>
         <ul className='flex flex-col space-y-3 text-sm'>
             <li>
@@ -104,7 +104,7 @@ const Request = () => {
             <div className='flex ml-6 mt-10 gap-8 flex-wrap  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
                {files.map((file,idx)=> 
                <div className='text-center p-4 w-fit bg-white drop-shadow-md h-fit'>
-                <img src='iconstest.svg' className='h-16 mx-auto'/>
+                <img src='iconstest.jpg' className='h-16 mx-auto'/>
                 <h3 className='font-semibold text-center'>Adewale Adeaga </h3>
                 <div className='flex gap-3  w-fit mx-auto'>
                     <button className='px-4 py-2 bg-green-600 text-white'>Approve</button>
