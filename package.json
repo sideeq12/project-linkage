@@ -42,5 +42,5 @@
   "devDependencies": {
     "tailwindcss": "^3.4.4"
   },
-  "proxy": "http://linkages-backend.onrender.com/"
+  "proxy": "https://linkages-backend.onrender.com/"
 }

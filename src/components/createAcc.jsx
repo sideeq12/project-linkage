@@ -22,23 +22,26 @@ const handleChange = (e) => {
 };
 const handleSubmit = async (e) => {
   e.preventDefault();
-//  if(ready){
-//   try {
-//     const response = await axios.post('http://linkages-backend.onrender.com/api/v1/auth/register', formData);
-//     // Save response to local storage
-//     localStorage.setItem('apiResponse', JSON.stringify(response.data));
-//     console.log('Response saved to local storage:', response.data);
-// } catch (error) {
-//     console.error('Error submitting the form:', error);
-// }
-//  }
-//  setError("passowrd not  match !")
+  console.log(formData)
+ if(ready){
+  try {
+    const response = await axios.post('https://linkages-backend.onrender.com/api/v1/auth/register',formData);
+    // Save response to local storage
+    console.log("the success message")
+    localStorage.setItem('apiResponse', JSON.stringify(response.data));
+    console.log('Response saved to local storage:', response.data);
+    navigate("/verification")
+} catch (error) {
+    console.error('Error submitting the form:', error);
+}
+ }
+ setError("passowrd not  match !")
 
-navigate("/verification")
+
 };
 
 const testConfirmation = (e)=>{
-if(e.target.value == formData.password){
+if(e.target.value === formData.password){
   setReady(true)
 }
 }
