@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -7,11 +8,53 @@ function Login() {
   const [segmentDisplay, setDisplay] = useState({
     login : false, createAccount : false, SignChoice : true, forgotPassword : false , verify : false
   })
+  const [error, setError ] = useState("")
+  const [ready, setReady ] = useState(false)
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+});
   const navigate = useNavigate()
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  navigate("/dashboard")
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+        ...formData,
+        [name]: value
+    });
+    if(name=="password"  && value.length >= 6){
+      setReady(true)
+    }
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   if(ready){
+    try {
+      console.log("ready ...")
+      const response = await axios.post('https://linkages-backend.onrender.com/api/v1/auth/login',
+        formData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+      localStorage.setItem('apiResponse', JSON.stringify(response.data));
+      console.log('Response saved to local storage:', response.data);
+      if(response.data.user.isVerified){
+        navigate("/dashboard")
+      }else{
+        navigate("/verification")
+      }
+  } catch (error) {
+      if(error.response.status == 401){
+        navigate("/verification")
+      }else{
+        setError("Account not found")
+      }
   }
+   }
+   setError(" password must not be less than six digits !")
+  };
 
   return (
     <div className=' bg-grad relative h-screen w-screen 
@@ -30,13 +73,16 @@ function Login() {
     
     <div className='border border-[#9999999f] relative w-full flex flex-col rounded-md   '>
       <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>Email Adresse</label>
-      <input type='text' placeholder='' className='outline-none h-12 pl-4'  />
+      <input  type='email' name="email"
+                    value={formData.email} onChange={handleChange} placeholder='' className='outline-none h-12 pl-4'  />
     </div>
     <div className='border border-[#9999999f] relative  flex w-full flex-col rounded-md   '>
       <label className='absolute bg-white p-1 rounded-lg -top-5 left-2'>Password</label>
-      <input type='text' placeholder='' className='outline-none h-12 pl-4'  />
+      <input  type='password' minLength='6' maxLength='14'  name="password"
+               onChange={handleChange}     placeholder='' className='outline-none h-12 pl-4'  />
     </div>
-    <button type='submit' className='w-full h-12 text-white bg-[#010080]'>Log in</button>
+    <button type='submit' className={`w-full h-12 text-white  ${ready ? "bg-[#010080]" : " bg-gray-300" }`}>Log in</button>
+    <div className='w-fit mx-auto text-xs text-red-500'>{error}</div>
     <div className='mt-2 w-fit mx-auto flex gap-20'>
         <div>
             <input type='checkbox' name='checkbox' id='checkbox' /> <label for="checkbox">Remember me.</label>

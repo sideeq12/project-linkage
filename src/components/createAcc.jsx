@@ -9,7 +9,6 @@ function CreateAcc() {
     email: '',
     password: ''
 });
-const [error, setError] = useState("")
 const [ready, setReady ] = useState(false)
 const navigate = useNavigate()
 
@@ -22,10 +21,14 @@ const handleChange = (e) => {
 };
 const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log(formData)
  if(ready){
   try {
-    const response = await axios.post('https://linkages-backend.onrender.com/api/v1/auth/register',formData);
+    const response = await axios.post('https://linkages-backend.onrender.com/api/v1/auth/register',
+      formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
     // Save response to local storage
     console.log("the success message")
     localStorage.setItem('apiResponse', JSON.stringify(response.data));
@@ -35,9 +38,6 @@ const handleSubmit = async (e) => {
     console.error('Error submitting the form:', error);
 }
  }
- setError("passowrd not  match !")
-
-
 };
 
 const testConfirmation = (e)=>{
@@ -81,7 +81,6 @@ if(e.target.value === formData.password){
     </div>
     <button type='submit' className={`w-[87%] h-12 text-white ${ready ? "bg-[#010080]" : " bg-gray-300" }`}>Submit</button>
     </form>
-    <div className='w-fit text-red-800 mt-2 text-xs mx-auto'>{error}</div>
     
     <div className='mt-2'>Already have an account? <a href="/login" className='font-semibold text-[#010080]'>Login</a>
       </div></div>
