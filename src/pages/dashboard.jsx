@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdDashboard } from "react-icons/md";
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { FaUsers } from "react-icons/fa";
@@ -11,6 +11,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaComputer } from "react-icons/fa6";
 import { FaShare } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import axios from 'axios';
 
 
 
@@ -23,10 +24,23 @@ const list =  [{ name : "OAU reports",imageType : "image File", size : "12mb"},
      { name : "OAU reports", imageType : "image File", size : "12mb"},{ name : "OAU reports",imageType : "image File", size : "12mb"},
      { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
      { name : "OAU reports", imageType : "image File", size : "12mb"}]
+  
 
 const Dashboard = () => {
     const navigate = useNavigate()
     const [view, setUploadview] = useState(false)
+    const [stats,setStats ]= useState({
+        totalMemo : 0, totalUser : 0, totalRequest :0
+     })
+useEffect(()=>{
+    const token = localStorage.getItem('apiResponse')
+const totalmemo = JSON.parse(token).data.stats.totalMemoranda;
+const totalUsers = JSON.parse(token).data.stats.totalUsers;
+const unverified = JSON.parse(token).data.stats.unVerifiedUsers;
+setStats({totalMemo : totalmemo, totalUser : totalUsers, totalRequest : unverified})
+
+
+}, [])
   return (
     <div className='h-[100vh] w-[100vw] overflow-hidden relative lg:flex'>
       <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48]
@@ -121,17 +135,17 @@ const Dashboard = () => {
             <a href='/mou'  className='bg-white w-1/3 py-2  lg:w-1/6 text-sm lg:text-base  lg:py-5  rounded-lg drop-shadow-md text-center'>
                 <h4>Total MOUs</h4>
                 <FaFileShield  className='mx-auto' size={30}/>
-                <span className=''>32</span>
+                <span className=''>{stats.totalMemo}</span>
             </a>
             <div onClick={()=>{navigate("/users")}} className='hover:cursor-pointer  bg-white w-1/3 lg:py-5 lg:w-1/6  rounded-lg drop-shadow-md text-center'>
                 <h4>Total Users</h4>
                 <FaUserFriends   className='mx-auto' size={30}/>
-                <span className=''>32</span>
+                <span className=''>{stats.totalUser}</span>
             </div>
             <div onClick={()=>{navigate("/request")}}  className='hover:cursor-pointer bg-white w-1/3 px-2 lg:py-5 lg:w-1/6   rounded-lg drop-shadow-md text-center'>
                 <h4>New User request</h4>
                 <FaComputer  className='mx-auto' size={30}/>
-                <span className=''>32</span>
+                <span className=''>{stats.totalRequest}</span>
             </div>
             <div onClick={()=>{setUploadview(!view)}} className='text-white w-1/3 lg:py-5 lg:w-1/4 bg-[#211A79] hover:cursor-pointer hover:bg-white
             hover:text-[#211A79] hover:border-2 hover:border-[#211A79]  rounded-lg drop-shadow-md text-center'>

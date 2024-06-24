@@ -39,13 +39,14 @@ function Login() {
         });
 
       localStorage.setItem('apiResponse', JSON.stringify(response.data));
-      console.log('Response saved to local storage:', response.data);
-      if(response.data.user.isVerified){
+      console.log('Response saved to local storage:', response);
+      if(response.status ==200){
         navigate("/dashboard")
       }else{
         navigate("/verification")
       }
   } catch (error) {
+    // console.log("the ",error.response)
       if(error.response.status == 401){
         navigate("/verification")
       }else{
