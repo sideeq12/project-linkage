@@ -32,12 +32,14 @@ const Dashboard = () => {
     const [stats,setStats ]= useState({
         totalMemo : 0, totalUser : 0, totalRequest :0
      })
+     const [name, setName ] = useState({firstName : "", lastName : ""})
 useEffect(()=>{
     const token = localStorage.getItem('apiResponse')
 const totalmemo = JSON.parse(token).data.stats.totalMemoranda;
 const totalUsers = JSON.parse(token).data.stats.totalUsers;
 const unverified = JSON.parse(token).data.stats.unVerifiedUsers;
 setStats({totalMemo : totalmemo, totalUser : totalUsers, totalRequest : unverified})
+setName({firstName : JSON.parse(token).data.user.firstName, lastName : JSON.parse(token).data.user.lastName})
 
 
 }, [])
@@ -127,7 +129,8 @@ setStats({totalMemo : totalmemo, totalUser : totalUsers, totalRequest : unverifi
         <div className='flex gap-2 lg:justify-between px-4 py-4 lg:p-0  lg:pr-20 bg-gradient-to-r from-[#FECC48]
        to-[#010080] lg:bg-none'>
         <img src="iconstest.jpg" className='w-24 rounded-full'/>
-        <h3 className='lg:text-2xl font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin <br/> Biola James</h3>
+        <h3 className='lg:text-2xl font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin 
+            <br/> {name.firstName} {name.lastName}</h3>
         <img src='/oaulogo.svg' className='w-12 ml-auto' />
         </div>
         <div className='flex w-full flex-wrap 

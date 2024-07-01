@@ -6,22 +6,64 @@ import { FaDatabase } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
+import axios from 'axios';
 import { FaSearchPlus } from "react-icons/fa";
 import { FaFileContract } from "react-icons/fa";
+import { useEffect } from 'react';
 
-const files = [{filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"},
-     {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"},{filesname : "OAU - Brazil"},
-     {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}, {filesname : "OAU - Brazil"}]
+const files = [{title : "OAU - Brazil"}]
 
 const MOU = () => {
     const [viewPdf, setPdfView ] = useState(false)
+    const [selectedOption, setSelectedOption] = useState('');
+    const [allFile, setFiles]= useState(files)
+    const [searchFrom, setAllSearch ] = useState([])
+    const [params, setParams] = useState('title')
 
 
+    const filterChange = (e)=>{
+      let data = e.target.value;
+      let paramStr = String(params)
+      if(paramStr == "collaborators"){
+        let upList =searchFrom.filter(file => file[paramStr][0].includes(data)|| file[paramStr][1].includes(data))
+        setFiles(upList)
+      }else{
+        let updated =searchFrom.filter(file => file[paramStr].includes(data))
+        setFiles(updated)
+      }
+    }
+    const handleChange = (event) => {
+      setSelectedOption(event.target.value);
+      setParams(event.target.value)
+    };
+    const token = JSON.parse(localStorage.getItem('apiResponse')).data.token
+    const fetchMou = async () => {  
+      try {
+        const response = await axios.get('https://linkages-backend.onrender.com/api/v1/memorandums?limit=10', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token}`
+          }
+        })
+        console.log('Response saved to local storage:', response);
+        const result = response.data
+        if(result.status == 200){
+          setFiles(result.data)
+          setAllSearch(result.data)
+        }
+    
+    } catch (error) {
+      console.log("the error",error)
+        }
+     }
+ useEffect(()=>{
+  fetchMou()
+ },[])
     const PDFViewer = () => {
         return (
         <div className='h-screen relative'>
               <iframe
-            src="/mou.pdf"
+            src="https://res.cloudinary.com/dzsahqb3x/raw/upload/v1716681403/co6vvqyxfxtqbgurd6tq.pdf"
             style={{ height: '100%', width: '100%', border: 'none' }}
             title="PDF Preview"
           />
@@ -122,21 +164,41 @@ const MOU = () => {
         <img src='/oaulogo.svg' className='w-12 ml-auto' />
         </div>
             <div className='flex px-4 mt-4 lg:mt-0'>
-                <input type="text" placeholder='Search ...' className='outline-none pl-8 border h-12 w-[70%]'/>
-               <div className='bg-white p-4 ml-5 rounded-md  text-black'>
-               <FaSearch  />
+                <input type="text" placeholder='Search ...'
+                onChange={(e)=>{filterChange(e)}}
+                 className='outline-none pl-8 border h-12 w-[70%]'/>
+                <div className='rounded-md z-40 ml-2 text-black'>
+               <div className="relative inline-block text-left">
+      <select
+        value={selectedOption}
+        onChange={handleChange}
+        className="block w-full mt-1 rounded-md py-3 px-2 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+      >
+        <option value="" disabled>
+          Filter Option
+        </option>
+        <option value="title">By title</option>
+        <option value="type">By type</option>
+        <option value="collaborators">By collaborators</option>
+        <option value="commencementYear">By year</option>
+        <option value="status">By status</option>
+      </select>
+    </div>
                </div>
-               <div className='bg-white p-4 rounded-md  ml-6 text-black'>
-                <FaSearchPlus />
+               <div className='bg-white p-4 ml-5 rounded-md hover:text-white
+                hover:bg-blue-900 hover:cursor-pointer  text-black'>
+               <FaSearch />
                </div>
+     
             </div>
             <div className='flex ml-6 mt-10 gap-8 flex-wrap  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
-               {files.map((file,idx)=> <div  onClick={()=>{setPdfView(true)}} className='text-center'>
-                <div className='drop-shadow-lg p-6 lg:p-16 bg-white text-[#010080] hover:bg-[#010080]
+               {allFile.map((file,idx)=> <div  onClick={()=>{setPdfView(true)}} className='text-center w-1/4'>
+                <div className='drop-shadow-lg p-6  mx-auto lg:p-16 bg-white text-[#010080] hover:bg-[#010080]
                 hover:cursor-pointer hover:text-white'>
-                    <FaFileContract size={40} />
+                    <FaFileContract size={40} className='mx-auto' />
                 </div>
-                <span className='font-semibold text-center mt-2 text-sm'>{file.filesname}</span>
+                <span className='font-semibold text-center mt-2 text-sm'>{file.title}</span>
+                {}
                </div>)}
             </div></>}
       </div>
@@ -150,3 +212,4 @@ const MOU = () => {
 export default MOU
 
 
+// the is to fix mou list abd yhe as
