@@ -23,10 +23,13 @@ const MOU = () => {
 
     const filterChange = (e)=>{
       let data = e.target.value;
-      let paramStr = String(params)
+      let paramStr = params
       if(paramStr == "collaborators"){
         let upList =searchFrom.filter(file => file[paramStr][0].includes(data)|| file[paramStr][1].includes(data))
         setFiles(upList)
+      }if(paramStr == "commencementYear"){
+        let yearFix =searchFrom.filter(file => file[paramStr] >= data)
+        setFiles(yearFix)
       }else{
         let updated =searchFrom.filter(file => file[paramStr].includes(data))
         setFiles(updated)
