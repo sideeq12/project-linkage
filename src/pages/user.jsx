@@ -1,18 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { MdDashboard } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { FaUsers } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { FaSignOutAlt } from "react-icons/fa";
+import axios from 'axios';
 
 
-
-const divsArray = Array.from({ length: 20 });
 
 
 const Users = () => {
     const [view, setView]=useState(false)
+    const [users, setUsers ] = useState([])
+    const token = JSON.parse(localStorage.getItem('apiResponse')).data.token
+    const fetchUser = async () => {  
+      try {
+        const response = await axios.get('https://linkages-backend.onrender.com/api/v1/users?limit=10&page=1', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token}`
+          }
+        })
+        console.log('Response saved to local storage:', response.data);
+        const result = response.data
+        if(result.status == 200){
+            setUsers(result.data)
+        }
+    
+    } catch (error) {
+      console.log("the error",error)
+        }
+     }
+     useEffect(()=>{
+        fetchUser()
+     }, [])
     const ViewProfile =()=>{
         return(
             <div className='bg-[#F1F1F1] w-[100vw] overflow-hidden lg:w-full h-full px-10 pt-10 lg:pt-32 '>
@@ -142,12 +164,13 @@ const Users = () => {
         </div>
       <img src='oaulogo.svg'  className='ml-auto mr-20  hidden lg:block'/>
       <div className='ml-4 text-xl font-bold mt-10  mb-2'>List of Users</div>
-    <div className=' grid grid-cols-3 px-4 text-center lg:flex lg:flex-wrap gap-4 lg:gap-8 h-[40rem] lg:h-[34rem] overflow-auto  no-scrollbar '>
-    {divsArray.map((_, index) => (
+    <div className=' grid grid-cols-3 px-4  text-center lg:flex lg:flex-wrap gap-4 lg:gap-8 h-[40rem] 
+    lg:h-[34rem] overflow-auto  no-scrollbar '>
+    {users.map((user, index) => (
         <div key={index} onClick={()=>{setView(true)}} className="text-[#010080]  hover:cursor-pointer
-         hover:bg-[#010080] hover:text-white p-2 lg:p-10  bg-white rounded-xl">
+         hover:bg-[#010080] hover:text-white py-8 lg:p-10  h-fit bg-white rounded-xl">
             <img src="iconstest.jpg"  className='auto h-10 rounded-full  lg:h-20 mb-2 mx-auto'/>
-            <span className='font-semibold'>Adewale James</span>
+            <span className='font-semibold'>{user.firstName} {user.lastName}</span>
         </div>
       ))}
     </div>

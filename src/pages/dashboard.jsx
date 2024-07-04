@@ -32,7 +32,119 @@ const Dashboard = () => {
     const [stats,setStats ]= useState({
         totalMemo : 0, totalUser : 0, totalRequest :0
      })
+     const [mouUpload, setMouUpload] = useState({})
+     const [isReady, setIsReady ] = useState(false)
+     const [imageUpload, setImageUpload ] = useState(false)
      const [name, setName ] = useState({firstName : "", lastName : ""})
+     const [file, setFile] = useState(null);
+    //  UPLOAD SECTION
+    
+    const UploadPDF = (e)=>{
+        console.log(e.target.files[0])
+        setFile(e.target.files[0]);
+    }
+
+   
+    const handleUpload = async() => {
+        const token = JSON.parse(localStorage.getItem('apiResponse')).data.token
+        console.log("the token" , token)
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            try {
+                const response = await axios.get('https://linkages-backend.onrender.com/api/v1/upload-pdf', formData, {
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${token}`
+                  }
+                })
+                console.log('Response saved to local storage:', response);
+                const result = response.data
+                if(result.status == 200){
+                console.log(response)
+                }
+            
+            } catch (error) {
+              console.log("the error",error)
+                }
+         } else {
+          console.log('No file selected');
+        }
+      };
+const Upload = () =>{
+
+  
+    return(
+        <div className='pt-4 w-fit mx-auto lg:mx-0 border'>
+            <div className='flex gap-4 text-white p-10 mx-auto lg:mx-0 w-fit'>
+                <input type="file" placeholder='select file' className='bg-[#211A79] p-4 ' onChange={UploadPDF}/>
+                <button className='border h-fit border-[#211A79]  text-[#211A79]  px-6 py-2 ' onClick={handleUpload}>Upload file</button>
+            </div>
+            <div>
+                <form className='flex flex-wrap gap-8 mt-10 mx-auto lg:mx-0 font-semibold w-5/6'>
+                    <div>
+                        <label for="title" className='text-sm  mb-2'>Title</label>  <br />
+                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                    </div>
+                    <div>
+                        <label for="title" className='text-sm  mb-2'>Collaboration Partner</label>  <br />
+                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                     <button className='bg-blue-800 ml-3 rounded-lg px-8 text-white py-2'>Add</button>
+                    </div>
+                    <div class="">
+        <label for="options" class="block text-sm font-medium text-gray-700">Choose an option</label>
+        <input
+            list="options"
+            id="options-input"
+            name="options"
+            class="mt-1 block  p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            placeholder="Select or type year"
+        />
+        <datalist id="options">
+            
+        <option value="2025"></option>
+            <option value="2023"></option>
+            <option value="2022"></option>
+            <option value="2021"></option>
+        </datalist>
+    </div>
+                    <div> <label htmlFor="options" className="block text-sm font-medium text-gray-700">Select type</label>
+      <select id="options" className="block w-full mt-1 p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <option value="LOCAL">LOCAL</option>
+        <option value="FOREIGN">FOREIGN </option>
+      </select>
+                    </div>
+                    <div> <label htmlFor="options" className="block text-sm font-medium text-gray-700">Status</label>
+      <select id="options" className="block w-full mt-1 p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <option value="LOCAL">ONGOING</option>
+        <option value="FOREIGN">FOREIGN </option>
+      </select>
+                    </div>
+                    <div class="">
+        <label for="options" class="block text-sm font-medium text-gray-700">Duration</label>
+        <input
+            list="options"
+            id="options-input"
+            name="options"
+            class="mt-1 block  p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            placeholder="Select or type duration..."
+        />
+        <datalist id="options">
+            
+        <option value="2025"></option>
+            <option value="2023"></option>
+            <option value="2022"></option>
+            <option value="2021"></option>
+        </datalist>
+    </div>
+                    <button className='border-0 rounded-none mx-auto lg:mx-0 text-white w-[80%] py-3  bg-[#211A79]' type='submit' >Submit</button>
+                </form>
+            </div>
+        </div>
+    )
+}
+
+
 useEffect(()=>{
     const token = localStorage.getItem('apiResponse')
 const totalmemo = JSON.parse(token).data.stats.totalMemoranda;
@@ -189,42 +301,3 @@ setName({firstName : JSON.parse(token).data.user.firstName, lastName : JSON.pars
 export default Dashboard
 
 
-
-const Upload = () =>{
-    return(
-        <div className='pt-4 w-fit mx-auto lg:mx-0 border'>
-            <div className='bg-[#211A79] text-white p-10 mx-auto lg:mx-0 w-fit'>
-                <input type="file" placeholder='upload file'/>
-            </div>
-            <div>
-                <form className='flex flex-wrap gap-8 mt-10 mx-auto lg:mx-0 font-semibold w-5/6'>
-                    <div>
-                        <label for="title" className='text-sm  mb-2'>Title</label>  <br />
-                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
-                    </div>
-                    <div>
-                        <label for="title" className='text-sm  mb-2'>Collaboration Partner</label>  <br />
-                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
-                    </div>
-                    <div>
-                        <label for="title" className='text-sm  mb-2'>Year of commencement</label>  <br />
-                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
-                    </div>
-                    <div>
-                        <label for="title" className='text-sm  mb-2'>Types of Linkage</label>  <br />
-                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
-                    </div>
-                    <div>
-                        <label for="title" className='text-sm  mb-2'>Status</label>  <br />
-                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
-                    </div>
-                    <div>
-                        <label for="title" className='text-sm  mb-2'>Duation</label>  <br />
-                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
-                    </div>
-                    <button className='border-0 rounded-none mx-auto lg:mx-0 text-white w-[80%] py-3  bg-[#211A79]' type='submit' >Submit</button>
-                </form>
-            </div>
-        </div>
-    )
-}
