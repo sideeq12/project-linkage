@@ -66,7 +66,7 @@ const MOU = () => {
         return (
         <div className='h-screen relative'>
               <iframe
-            src="https://res.cloudinary.com/dzsahqb3x/raw/upload/v1716681403/co6vvqyxfxtqbgurd6tq.pdf"
+            src="http://res.cloudinary.com/dzsahqb3x/raw/upload/v1720409476/raw/upload/v1718777856/power%20design.pdf"
             style={{ height: '100%', width: '100%', border: 'none' }}
             title="PDF Preview"
           />

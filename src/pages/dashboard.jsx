@@ -32,36 +32,57 @@ const Dashboard = () => {
     const [stats,setStats ]= useState({
         totalMemo : 0, totalUser : 0, totalRequest :0
      })
-     const [mouUpload, setMouUpload] = useState({})
+     let mouData ={url : "", title : "", collaborators : [
+        "Obafemi Awolowo University"
+     ], commencementYear : 0, duration: 0}
      const [isReady, setIsReady ] = useState(false)
      const [imageUpload, setImageUpload ] = useState(false)
      const [name, setName ] = useState({firstName : "", lastName : ""})
      const [file, setFile] = useState(null);
+     let collabText ;
+     let collabValue = ["Obafemi Awolowo University"]
     //  UPLOAD SECTION
-    
     const UploadPDF = (e)=>{
-        console.log(e.target.files[0])
         setFile(e.target.files[0]);
     }
-
-   
+  const setNewCollab= (e)=>{
+    collabText=e.target.value
+    console.log(collabText)
+  }
+   const setInfo = (e)=>{
+    const { name, value } = e.target;
+    if(name=="duration"){
+        setIsReady(true)
+    }
+if(name =="commencementYear" || name == "duration" ){
+    mouData[name]=Number(value)
+}else{
+    mouData[name]=value
+}
+   console.log(mouData)
+   }
     const handleUpload = async() => {
         const token = JSON.parse(localStorage.getItem('apiResponse')).data.token
-        console.log("the token" , token)
+        if (!file) {
+            console.log('No file selected');
+            return;
+        }
+        const formData = new FormData();
+        formData.append('file', file);
         if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
+          
             try {
-                const response = await axios.get('https://linkages-backend.onrender.com/api/v1/upload-pdf', formData, {
+                const response = await axios.post('https://linkages-backend.onrender.com/api/v1/upload-pdf', formData, {
                   headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : `Bearer ${token}`
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
                   }
                 })
-                console.log('Response saved to local storage:', response);
+                // console.log('Response saved to local storage:', response);
                 const result = response.data
-                if(result.status == 200){
-                console.log(response)
+                if(response.status == 200){
+                    mouData["url"]= result.data.url
+                console.log(mouData)
                 }
             
             } catch (error) {
@@ -71,6 +92,21 @@ const Dashboard = () => {
           console.log('No file selected');
         }
       };
+      const sendAll=async()=>{
+        const token = JSON.parse(localStorage.getItem('apiResponse')).data.token
+        try {
+            const response = await axios.post('https://linkages-backend.onrender.com/api/api/v1/memorandum', mouData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log('Response:', response.data);
+        } catch (error) {
+            console.error('Error sending request:', error);
+        }
+    }
+    
 const Upload = () =>{
 
   
@@ -81,22 +117,34 @@ const Upload = () =>{
                 <button className='border h-fit border-[#211A79]  text-[#211A79]  px-6 py-2 ' onClick={handleUpload}>Upload file</button>
             </div>
             <div>
-                <form className='flex flex-wrap gap-8 mt-10 mx-auto lg:mx-0 font-semibold w-5/6'>
+                <form className='flex flex-wrap gap-8 mt-10 mb-20 mx-auto lg:mx-0 font-semibold w-5/6'>
                     <div>
                         <label for="title" className='text-sm  mb-2'>Title</label>  <br />
-                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
+                    <input type='text' placeholder='' name='title' 
+                     className='border outline-none w-80 h-10' onChange={(e)=>{setInfo(e)}}/>
                     </div>
                     <div>
                         <label for="title" className='text-sm  mb-2'>Collaboration Partner</label>  <br />
-                    <input type='text' placeholder=''  className='border outline-none w-80 h-10'/>
-                     <button className='bg-blue-800 ml-3 rounded-lg px-8 text-white py-2'>Add</button>
+                    <input type='text' name='collaborators'
+                     onChange={(e)=>{setNewCollab(e)}}
+                     placeholder='' 
+                     className='border outline-none w-80 h-10'/>
+                     <button className='bg-blue-800 ml-3 rounded-lg px-8 text-white py-2' onClick={(e)=>{
+                        e.preventDefault()
+                       collabValue.push(collabText)
+                        mouData["collaborators"] = collabValue;
+                        console.log(mouData)
+                     }}>Add</button>
+
                     </div>
+                    {mouData["collaborators"].map((collab, idx)=><div key={idx}>{collab}</div>)}
                     <div class="">
-        <label for="options" class="block text-sm font-medium text-gray-700">Choose an option</label>
+        <label for="options" class="block text-sm font-medium text-gray-700">Commencement Year</label>
         <input
             list="options"
             id="options-input"
-            name="options"
+            name="commencementYear"
+            onChange={(e)=>{setInfo(e)}}
             class="mt-1 block  p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             placeholder="Select or type year"
         />
@@ -109,41 +157,45 @@ const Upload = () =>{
         </datalist>
     </div>
                     <div> <label htmlFor="options" className="block text-sm font-medium text-gray-700">Select type</label>
-      <select id="options" className="block w-full mt-1 p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+      <select id="options" name='type' 
+      onChange={(e)=>{setInfo(e)}} className="block w-full mt-1 p-2 
+       border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500
+        focus:border-blue-500 sm:text-sm">
         <option value="LOCAL">LOCAL</option>
         <option value="FOREIGN">FOREIGN </option>
       </select>
                     </div>
-                    <div> <label htmlFor="options" className="block text-sm font-medium text-gray-700">Status</label>
+                    {/* <div> <label htmlFor="options" className="block text-sm font-medium text-gray-700">Status</label>
       <select id="options" className="block w-full mt-1 p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
         <option value="LOCAL">ONGOING</option>
         <option value="FOREIGN">FOREIGN </option>
       </select>
-                    </div>
+                    </div> */}
                     <div class="">
         <label for="options" class="block text-sm font-medium text-gray-700">Duration</label>
         <input
             list="options"
             id="options-input"
-            name="options"
-            class="mt-1 block  p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            name="duration"
+            onChange={(e)=>{setInfo(e)}}
+            class="mt-1 block  p-2 border border-gray-300 bg-white rounded-md 
+            shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             placeholder="Select or type duration..."
         />
         <datalist id="options">
             
-        <option value="2025"></option>
-            <option value="2023"></option>
-            <option value="2022"></option>
-            <option value="2021"></option>
+        <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value="4"></option>
         </datalist>
     </div>
-                    <button className='border-0 rounded-none mx-auto lg:mx-0 text-white w-[80%] py-3  bg-[#211A79]' type='submit' >Submit</button>
+                    <button onClick={sendAll} className={`border-0 rounded-none mx-auto lg:mx-0 text-white w-[80%] py-3 ${isReady ? 'bg-[#211A79]' :'bg-gray-300' } `} type='submit' >Submit</button>
                 </form>
             </div>
         </div>
     )
 }
-
 
 useEffect(()=>{
     const token = localStorage.getItem('apiResponse')
