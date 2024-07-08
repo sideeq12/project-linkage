@@ -9,6 +9,7 @@ function Login() {
     login : false, createAccount : false, SignChoice : true, forgotPassword : false , verify : false
   })
   const [error, setError ] = useState("")
+  const [logStat, setLoStat] = useState("Log in")
   const [ready, setReady ] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
@@ -27,6 +28,7 @@ function Login() {
     }
   };
   const handleSubmit = async (e) => {
+    setLoStat("please wait...")
     e.preventDefault();
    if(ready){
     try {
@@ -82,7 +84,8 @@ function Login() {
       <input  type='password' minLength='6' maxLength='14'  name="password"
                onChange={handleChange}     placeholder='' className='outline-none h-12 pl-4'  />
     </div>
-    <button type='submit' className={`w-full h-12 text-white  ${ready ? "bg-[#010080]" : " bg-gray-300" }`}>Log in</button>
+    <button type='submit' 
+     className={`w-full h-12 text-white  ${ready ? "bg-[#010080]" : " bg-gray-300" }`}>{logStat}</button>
     <div className='w-fit mx-auto text-xs text-red-500'>{error}</div>
     <div className='mt-2 w-fit mx-auto flex gap-20'>
         <div>
