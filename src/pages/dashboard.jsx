@@ -15,6 +15,7 @@ import axios from 'axios';
 import { GrStatusGood } from "react-icons/gr";
 import { TbMoodHappy } from "react-icons/tb";
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { IoIosArrowBack } from "react-icons/io";
 
 import  Storage from "../components/config/firebase"
 import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
@@ -126,7 +127,7 @@ const Upload = () =>{
   
     return(
         <div className='pt-4 w-fit mx-auto lg:mx-0 '>
-            <span className='text-lg font-semibold cursor-pointer' onClick={()=>{setUploadview(false)}}>Back</span>
+            <div className='text-md font-semibold cursor-pointer flex gap-1' onClick={()=>{setUploadview(false)}}><IoIosArrowBack /> Back</div>
             <div className='flex gap-4  text-white py-10 mx-auto lg:mx-0 w-fit'>
                 <input type="file" placeholder='select file' className='bg-[#211A79] p-4 ' onChange={UploadPDF}/>
                 <button className='border h-fit border-[#211A79]  text-[#211A79]  px-6 py-2 ' 

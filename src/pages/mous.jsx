@@ -10,8 +10,9 @@ import axios from 'axios';
 import { FaSearchPlus } from "react-icons/fa";
 import { FaFileContract } from "react-icons/fa";
 import { useEffect } from 'react';
+// import { FaFileContract } from 'react-icons/fa';
 
-const files = [{title : "OAU - Brazil"}]
+const files = []
 
 const MOU = () => {
     const [viewPdf, setPdfView ] = useState(false)
@@ -19,8 +20,21 @@ const MOU = () => {
     const [allFile, setFiles]= useState(files)
     const [searchFrom, setAllSearch ] = useState([])
     const [params, setParams] = useState('title')
+    const [selectedPdf, setSelectedPdf] = useState(null);
 
+    const handlePdfClick = (fileUrl) => {
+        setSelectedPdf(fileUrl);
+    };
 
+    const handleClose = () => {
+        setSelectedPdf(null);
+    };
+    const truncateTitle = (title, maxLength = 40) => {
+      if (title.length > maxLength) {
+          return title.substring(0, maxLength) + '...';
+      }
+      return title;
+  };
     const filterChange = (e)=>{
       let data = e.target.value;
       let paramStr = params
@@ -53,6 +67,7 @@ const MOU = () => {
         if(result.status == 200){
           setFiles(result.data)
           setAllSearch(result.data)
+          console.log(result.data)
         }
     
     } catch (error) {
@@ -62,19 +77,23 @@ const MOU = () => {
  useEffect(()=>{
   fetchMou()
  },[])
-    const PDFViewer = () => {
-        return (
-        <div className='h-screen relative'>
-              <iframe
-            src="http://res.cloudinary.com/dzsahqb3x/raw/upload/v1720409476/raw/upload/v1718777856/power%20design.pdf"
-            style={{ height: '100%', width: '100%', border: 'none' }}
-            title="PDF Preview"
+ const PDFViewer = ({ pdfUrl, onClose }) => {
+  return (
+      <div className='h-screen relative'>
+          <iframe
+              src={pdfUrl}
+              style={{ height: '100%', width: '100%', border: 'none' }}
+              title="PDF Preview"
           />
-          <div className='bg-red-800 text-white py-2 px-6 
-          w-fit rounded-md mx-[45%] absolute bottom-20 z-50' onClick={()=>{setPdfView(false)}}>close</div>
-        </div>
-        );
-       };
+          <div
+              className='bg-red-800 text-white py-2 px-6 w-fit rounded-md mx-auto absolute bottom-20 left-1/2 transform -translate-x-1/2 z-50 cursor-pointer'
+              onClick={onClose}
+          >
+              Close
+          </div>
+      </div>
+  );
+};
     
   return (
     <div className='h-[100vh] relative w-[100vw] lg:flex'>
@@ -104,7 +123,7 @@ const MOU = () => {
     </div>
     <div className='mt-32'>
         <ul className='flex flex-col space-y-3 text-sm'>
-        
+
             <li>
                 <Link className='flex text-white gap-2'>
                 <IoMdSettings  size={24} color='#fff'/>
@@ -160,7 +179,7 @@ const MOU = () => {
             </li>
         </ul>
       </div>
-      <div className='flex gap-2 lg:justify-between px-4 py-4 lg:py-10   lg:pr-20 bg-gradient-to-r from-[#FECC48]
+      <div className='flex gap-2 lg:justify-between px-4 py-4 lg:pt-2   lg:pr-20 bg-gradient-to-r from-[#FECC48]
        to-[#010080] lg:bg-none'>
         <img src="iconstest.jpg" className='w-24 rounded-full'/>
         <h3 className='lg:text-2xl lg:ml-6 font-bold mt-4 text-base text-white lg:mt-0 lg:text-[#211A79]'>Welcome Admin <br/> Biola James</h3>
@@ -194,15 +213,43 @@ const MOU = () => {
                </div>
      
             </div>
-            <div className='flex ml-6 mt-10 gap-8 flex-wrap  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
-               {allFile.map((file,idx)=> <div  key={idx} onClick={()=>{setPdfView(true)}} className='text-center w-1/4'>
-                <div className='drop-shadow-lg p-6  mx-auto lg:p-16 bg-white text-[#010080] hover:bg-[#010080]
-                hover:cursor-pointer hover:text-white'>
-                    <FaFileContract size={40} className='mx-auto' />
+            <div className=' ml-6 mt-10 gap-8  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
+            <table className="w-11/12 mr-6 border-collapse border border-gray-200">
+                <thead className="bg-black text-white">
+                    <tr>
+                        <th className="text-left p-4 font-semibold border-b">#</th>
+                        <th className="text-left p-4 font-semibold border-b">File</th>
+                        <th className="text-left p-4 font-semibold border-b">Title</th>
+                        <th className="text-left p-4 font-semibold border-b">Duration</th>
+                        
+                        <th className="text-left p-4 font-semibold border-b">Status</th>
+                    </tr>
+                </thead>
+                <tbody className='text-sm'>
+                    {allFile.map((file, idx) => (
+                        <tr
+                            key={idx}
+                            onClick={() => handlePdfClick(file.url)}
+                            className='cursor-pointer hover:bg-gray-600 hover:text-white'
+                        >  <td className="p-2 border-b">{idx + 1}</td>
+                          <td className="p-2 border-b text-center">
+                                <FaFileContract size={20} className='mx-auto text-[#000]' />
+                            </td>
+                          
+                            <td className="p-2 border-b">{truncateTitle(file.title)}</td>
+                            <td className="p-2 border-b">{file.duration} years</td>
+                            <td className="p-2 border-b">{file.status} </td>
+                            
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            {selectedPdf && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <PDFViewer pdfUrl={selectedPdf} onClose={handleClose} />
                 </div>
-                <span className='font-semibold text-center mt-2 text-sm'>{file.title}</span>
-                {}
-               </div>)}
+            )}
             </div></>}
       </div>
 
