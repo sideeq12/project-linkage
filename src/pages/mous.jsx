@@ -195,7 +195,7 @@ const MOU = () => {
      
             </div>
             <div className='flex ml-6 mt-10 gap-8 flex-wrap  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
-               {allFile.map((file,idx)=> <div  onClick={()=>{setPdfView(true)}} className='text-center w-1/4'>
+               {allFile.map((file,idx)=> <div  key={idx} onClick={()=>{setPdfView(true)}} className='text-center w-1/4'>
                 <div className='drop-shadow-lg p-6  mx-auto lg:p-16 bg-white text-[#010080] hover:bg-[#010080]
                 hover:cursor-pointer hover:text-white'>
                     <FaFileContract size={40} className='mx-auto' />

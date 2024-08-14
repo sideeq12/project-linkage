@@ -12,23 +12,25 @@ import { FaComputer } from "react-icons/fa6";
 import { FaShare } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
+import { GrStatusGood } from "react-icons/gr";
+import { TbMoodHappy } from "react-icons/tb";
+import { IoCloseCircleSharp } from "react-icons/io5";
+
+import  Storage from "../components/config/firebase"
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 
 
 
 const list =  [{ name : "OAU reports",imageType : "image File", size : "12mb"},
      { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
-     { name : "OAU reports", imageType : "image File", size : "12mb"},{ name : "OAU reports",imageType : "image File", size : "12mb"},
-     { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
-     { name : "OAU reports", imageType : "image File", size : "12mb"},{ name : "OAU reports",imageType : "image File", size : "12mb"},
-     { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
-     { name : "OAU reports", imageType : "image File", size : "12mb"},{ name : "OAU reports",imageType : "image File", size : "12mb"},
-     { name : "OAU reports",imageType : "PDF File", size : "134kb"}, 
      { name : "OAU reports", imageType : "image File", size : "12mb"}]
+
   
 
 const Dashboard = () => {
     const navigate = useNavigate()
     const [view, setUploadview] = useState(false)
+    const [fileSuccess, setFileSuccess] = useState(false)
     const [stats,setStats ]= useState({
         totalMemo : 0, totalUser : 0, totalRequest :0
      })
@@ -38,19 +40,46 @@ const Dashboard = () => {
      const [isReady, setIsReady ] = useState(false)
      const [imageUpload, setImageUpload ] = useState(false)
      const [name, setName ] = useState({firstName : "", lastName : ""})
-     const [file, setFile] = useState(null);
+     const [pdfFile, setPdfFile] = useState(null);
+     const [pdfUrl, setPdfUrl] = useState("");
      let collabText ;
      let collabValue = ["Obafemi Awolowo University"]
     //  UPLOAD SECTION
     const UploadPDF = (e)=>{
-        setFile(e.target.files[0]);
+        setPdfFile(e.target.files[0]);
     }
+
+    const handleUpload = async () => {
+        if (!pdfFile) {
+          alert("Please choose a PDF file first");
+          return;
+        }
+    
+        const storageRef = ref(Storage, `pdfs/${pdfFile.name}`);
+    
+        try {
+          // Upload the file
+          await uploadBytes(storageRef, pdfFile);
+    
+          // Get the file's URL
+          const url = await getDownloadURL(storageRef);
+          setPdfUrl(url);
+          alert("Upload successful");
+        } catch (error) {
+          console.error("Error uploading file:", error);
+          alert("Upload failed");
+        }
+      };
+    
   const setNewCollab= (e)=>{
     collabText=e.target.value
     console.log(collabText)
   }
    const setInfo = (e)=>{
     const { name, value } = e.target;
+    if(mouData.url.length < 1 ){
+        mouData.url = pdfUrl
+    }
     if(name=="duration"){
         setIsReady(true)
     }
@@ -61,60 +90,48 @@ if(name =="commencementYear" || name == "duration" ){
 }
    console.log(mouData)
    }
-    const handleUpload = async() => {
-        const token = JSON.parse(localStorage.getItem('apiResponse')).data.token
-        if (!file) {
-            console.log('No file selected');
-            return;
-        }
-        const formData = new FormData();
-        formData.append('file', file);
-        if (file) {
-          
-            try {
-                const response = await axios.post('https://linkages-backend.onrender.com/api/v1/upload-pdf', formData, {
-                  headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`
-                  }
-                })
-                // console.log('Response saved to local storage:', response);
-                const result = response.data
-                if(response.status == 200){
-                    mouData["url"]= result.data.url
-                console.log(mouData)
-                }
-            
-            } catch (error) {
-              console.log("the error",error)
-                }
-         } else {
-          console.log('No file selected');
-        }
-      };
+  
       const sendAll=async()=>{
         const token = JSON.parse(localStorage.getItem('apiResponse')).data.token
         try {
-            const response = await axios.post('https://linkages-backend.onrender.com/api/api/v1/memorandum', mouData, {
+            const response = await axios.post('https://linkages-backend.onrender.com/api/v1/memorandum', mouData, {
                 headers: {
                     'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                 }
             });
             console.log('Response:', response.data);
+            alert("File uploaded successfully")
+            setFileSuccess(true)
         } catch (error) {
             console.error('Error sending request:', error);
         }
     }
     
 const Upload = () =>{
-
+    const SuccessMessage = ()=>{
+        return(
+            <div className='w-screen left-0 absolute top-0 bg-opacity-45 backdrop-blur-sm h-screen bg-black z-50'>
+        
+            <div className='px-10 md:px-20 py-16 mt-40 w-fit relative mx-auto rounded-lg text-green-950 bg-white'>
+            <IoCloseCircleSharp className='absolute -top-4 -right-4 cursor-pointer' onClick={()=>{setFileSuccess(false)}}
+         size={35} />
+            {/* <GrStatusGood  size={50} className="mb-4 mx-auto"/> */}
+            <GrStatusGood size={70} className="mb-4 mx-auto "/>
+            <h4 className='text-xl font-semibold '>File Uploaded Successfully!</h4>
+            </div>
+            </div>
+        )
+        }
   
     return(
-        <div className='pt-4 w-fit mx-auto lg:mx-0 border'>
-            <div className='flex gap-4 text-white p-10 mx-auto lg:mx-0 w-fit'>
+        <div className='pt-4 w-fit mx-auto lg:mx-0 '>
+            <span className='text-lg font-semibold cursor-pointer' onClick={()=>{setUploadview(false)}}>Back</span>
+            <div className='flex gap-4  text-white py-10 mx-auto lg:mx-0 w-fit'>
                 <input type="file" placeholder='select file' className='bg-[#211A79] p-4 ' onChange={UploadPDF}/>
-                <button className='border h-fit border-[#211A79]  text-[#211A79]  px-6 py-2 ' onClick={handleUpload}>Upload file</button>
+                <button className='border h-fit border-[#211A79]  text-[#211A79]  px-6 py-2 ' 
+                onClick={handleUpload}
+                 >Upload file</button>
             </div>
             <div>
                 <form className='flex flex-wrap gap-8 mt-10 mb-20 mx-auto lg:mx-0 font-semibold w-5/6'>
@@ -190,9 +207,12 @@ const Upload = () =>{
             <option value="4"></option>
         </datalist>
     </div>
-                    <button onClick={sendAll} className={`border-0 rounded-none mx-auto lg:mx-0 text-white w-[80%] py-3 ${isReady ? 'bg-[#211A79]' :'bg-gray-300' } `} type='submit' >Submit</button>
+                    <div onClick={sendAll}
+                     className={`border-0 rounded-none mx-auto lg:mx-0 text-center
+                      text-white w-[80%] py-3 ${isReady ? 'bg-[#211A79]' :'bg-gray-300' } `} type='submit' >Submit</div>
                 </form>
             </div>
+          {fileSuccess &&  <SuccessMessage />}
         </div>
     )
 }
@@ -344,6 +364,7 @@ setName({firstName : JSON.parse(token).data.user.firstName, lastName : JSON.pars
     </div>
 </div>
 </>}
+
       </div>
 
     </div>
@@ -351,5 +372,7 @@ setName({firstName : JSON.parse(token).data.user.firstName, lastName : JSON.pars
 }
 
 export default Dashboard
+
+
 
 
