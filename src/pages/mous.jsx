@@ -214,6 +214,7 @@ const MOU = () => {
      
             </div>
             <div className=' ml-6 mt-10 gap-8  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
+         
             <table className="w-11/12 mr-6 border-collapse border border-gray-200">
                 <thead className="bg-black text-white">
                     <tr>
@@ -221,28 +222,34 @@ const MOU = () => {
                         <th className="text-left p-4 font-semibold border-b">File</th>
                         <th className="text-left p-4 font-semibold border-b">Title</th>
                         <th className="text-left p-4 font-semibold border-b">Duration</th>
-                        
+                    
                         <th className="text-left p-4 font-semibold border-b">Status</th>
                     </tr>
                 </thead>
-                <tbody className='text-sm'>
-                    {allFile.map((file, idx) => (
-                        <tr
-                            key={idx}
-                            onClick={() => handlePdfClick(file.url)}
-                            className='cursor-pointer hover:bg-gray-600 hover:text-white'
-                        >  <td className="p-2 border-b">{idx + 1}</td>
-                          <td className="p-2 border-b text-center">
-                                <FaFileContract size={20} className='mx-auto text-[#000]' />
-                            </td>
-                          
-                            <td className="p-2 border-b">{truncateTitle(file.title)}</td>
-                            <td className="p-2 border-b">{file.duration} years</td>
-                            <td className="p-2 border-b">{file.status} </td>
-                            
-                        </tr>
-                    ))}
-                </tbody>
+              {allFile.length > 1 ?
+               <tbody className='text-sm'>
+               {allFile.map((file, idx) => (
+                   <tr
+                       key={idx}
+                       onClick={() => handlePdfClick(file.url)}
+                       className='cursor-pointer hover:bg-gray-600 hover:text-white'
+                   >  <td className="p-2 border-b">{idx + 1}</td>
+                     <td className="p-2 border-b text-center">
+                           <FaFileContract size={20} className='mx-auto text-[#000]' />
+                       </td>
+                     
+                       <td className="p-2 border-b">{truncateTitle(file.title)}</td>
+                       <td className="p-2 border-b">{file.duration} years</td>
+                       <td className="p-2 border-b">{file.status} </td>
+                       
+                   </tr>
+               ))}
+           </tbody>
+            :   <div className='bg-white text-center p-10 w-[100%] mx-auto'>
+              <h3>Please wait</h3>
+            <img src="/pleasewait.gif" className='w-32 h-12 mx-auto'/>
+            </div>}
+               
             </table>
 
             {selectedPdf && (
@@ -262,4 +269,4 @@ const MOU = () => {
 export default MOU
 
 
-// the is to fix mou list abd yhe as
+// The gif

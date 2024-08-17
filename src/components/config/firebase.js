@@ -2,15 +2,22 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
+const authDomain = process.env.REACT_APP_API_URL;
+const appId = process.env.REACT_APP_appId;
+const messagingSenderId = process.env.REACT_APP_messagingSenderId;
+const APIKEY = process.env.REACT_APP_APIKEY;
+const storageBucket = process.env.REACT_APP_storageBucket;
+const measurementId = process.env.REACT_APP_measurementId;
+const projectId = process.env.REACT_APP_projectId;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAncgBT-6Mbm7U-d4pS_EcB9bmNMT4eiyY",
-  authDomain: "linkage-files.firebaseapp.com",
+  apiKey: APIKEY,
+  authDomain: authDomain,
   projectId: "linkage-files",
-  storageBucket: "linkage-files.appspot.com",
-  messagingSenderId: "373179860871",
-  appId: "1:373179860871:web:4185ff590bde98c6257522",
-  measurementId: "G-K2QYW93HF7"
+  storageBucket:storageBucket,
+  messagingSenderId: messagingSenderId,
+  appId: appId,
+  measurementId: measurementId
 };
 
 // Initialize Firebase
