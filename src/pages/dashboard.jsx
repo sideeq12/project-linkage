@@ -34,9 +34,10 @@ const Dashboard = () => {
   let mouData = {
     url: "",
     title: "",
-    collaborators: ["Obafemi Awolowo University"],
+    collaborators: ["OAU"],
     commencementYear: 0,
     duration: 0,
+    type : "LOCAL"
   };
   const [isReady, setIsReady] = useState(false);
   const [imageUpload, setImageUpload] = useState(false);
@@ -45,8 +46,9 @@ const Dashboard = () => {
   const [pdfUrl, setPdfUrl] = useState("");
   const [list, setList] = useState([]);
   const [deleteStatus, setDelStatus] = useState(false)
+  const [uploadMessage,setUploadMessage] =useState("Upload File")
   let collabText;
-  let collabValue = ["Obafemi Awolowo University"];
+  let collabValue = ["OAU"];
 
   const token = JSON.parse(localStorage.getItem("apiResponse")).data.token;
   const fetchMou = async () => {
@@ -86,12 +88,13 @@ const Dashboard = () => {
 
     try {
       // Upload the file
+      setUploadMessage("Generating file please wait...")
       await uploadBytes(storageRef, pdfFile);
 
       // Get the file's URL
       const url = await getDownloadURL(storageRef);
       setPdfUrl(url);
-      alert("Upload successful");
+      setUploadMessage("File link generated")
     } catch (error) {
       console.error("Error uploading file:", error);
       alert("Upload failed");
@@ -212,7 +215,7 @@ const Dashboard = () => {
             className="border h-fit border-[#211A79]  text-[#211A79]  px-6 py-2 "
             onClick={handleUpload}
           >
-            Upload file
+            {uploadMessage}
           </button>
         </div>
         <div>
@@ -364,6 +367,9 @@ const Dashboard = () => {
   const formattedDate = date.toLocaleDateString('en-US', options);
 
   return formattedDate;
+}
+function limitTo15Chars(str) {
+  return str.length > 40 ? str.slice(0, 37) + '...' : str;
 }
 
   useEffect(() => {
@@ -541,6 +547,7 @@ const Dashboard = () => {
                       <th className="py-4">#</th>
                       <th>File</th>
                       <th>Title</th>
+                      <th>Collaborators</th>
                       <th>Date </th>
                       <th>Action</th>
                     </tr>
@@ -551,10 +558,10 @@ const Dashboard = () => {
                         <td className="py-4">{idx + 1}</td>
                         <td>
                           {" "}
-                          <FaFileShield size={20} color="#211A79" />
+                          <FaFileShield size={16} color="#211A79" className="mx-auto" />
                         </td>
-                        <td>{memo.title}</td>
-
+                        <td>{limitTo15Chars(memo.title)}</td>
+                        <td>{memo.collaborators.map((collab, idx)=><span key={idx}>{collab} </span>)}</td>
                         <td> {displayDayDateYear(memo.createdAt)}</td>
                         <td>
                           {" "}

@@ -215,7 +215,7 @@ const MOU = () => {
             </div>
             <div className=' ml-6 mt-10 gap-8  h-[38rem] lg:h-[28rem] no-scrollbar overflow-auto'>
          
-            <table className="w-11/12 mr-6 border-collapse border border-gray-200">
+            <table className="w-11/12 mr-6 border-collapse border bg-white border-gray-200">
                 <thead className="bg-black text-white">
                     <tr>
                         <th className="text-left p-4 font-semibold border-b">#</th>
