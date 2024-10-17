@@ -76,49 +76,8 @@ const Users = () => {
         )
     }
   return (
-    <div className='h-[100vh] w-[100vw] relative lg:flex'>
-      <div className='w-[20vw] hidden lg:block pt-20 pl-10 border-r-2 h-full bg-gradient-to-t from-[#FECC48] to-[#010080]'>
-<img src="iconstest.jpg"  className='h-20  w-20 mb-16 rounded-full' />
-    <div className='mt-4'>
-        <ul className='flex flex-col space-y-3 text-sm'>
-            <li>
-                <Link to="/dashboard" className='flex text-white gap-2'>
-                <MdDashboard  size={24} color='#fff'/>
-                <span>Dashboard</span>
-                </Link>
-            </li>
-            <li>
-                <Link to="/users" className='flex text-white gap-2'>
-                <FaUsers  size={24} color='#fff'/>
-                <span>Users</span>
-                </Link>
-            </li>
-            <li>
-                <Link to="/mou" className='flex text-white gap-2'>
-                <FaDatabase  size={24} color='#fff'/>
-                <span>MOU's</span>
-                </Link>
-            </li>
-        </ul>
-    </div>
-    <div className='mt-32'>
-        <ul className='flex flex-col space-y-3 text-sm'>
-        
-            <li>
-                <Link  className='flex text-white gap-2'>
-                <IoMdSettings  size={24} color='#fff'/>
-                <span>Setting</span>
-                </Link>
-            </li>
-            <li>
-                <Link className='flex text-white gap-2'>
-                <FaSignOutAlt  size={24} color='#fff'/>
-                <span>Sign out</span>
-                </Link>
-            </li>
-        </ul>
-    </div>
-      </div>
+    <div>
+      
       <div className='w-[100vw]  z-20 lg:hidden  fixed  bottom-0 bg-gradient-to-t py-3 rounded-t-lg from-[#FECC48]
        to-[#010080]'>
 

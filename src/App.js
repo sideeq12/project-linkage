@@ -3,10 +3,13 @@ import './App.css';
 import CreateAccount from './pages/CreateAccount';
 import IndexRoute from './routes/idRoutes';
 
+import { BrowserRouter as Router } from 'react-router-dom';
+
 
 function App() {
-  return (
- <IndexRoute />
+  return (<Router>
+    <IndexRoute />
+  </Router>
   );
 }
 
