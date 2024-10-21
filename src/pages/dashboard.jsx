@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { MdDashboard } from "react-icons/md";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { FaUsers } from "react-icons/fa";
-import { FaDatabase } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
-import { FaSignOutAlt } from "react-icons/fa";
-import { FaFileShield } from "react-icons/fa6";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { FaUserFriends } from "react-icons/fa";
-import { FaComputer } from "react-icons/fa6";
-import { FaShare } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FaCloudUploadAlt, FaUserFriends } from "react-icons/fa";
+import { FaComputer, FaFileShield } from "react-icons/fa6";
 import { GrStatusGood } from "react-icons/gr";
-import { TbMoodHappy } from "react-icons/tb";
-import { IoCloseCircleSharp } from "react-icons/io5";
 import { IoIosArrowBack } from "react-icons/io";
+import { IoCloseCircleSharp } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Storage from "../components/config/firebase";
-import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
 
 // let list =  []
 
@@ -37,7 +28,7 @@ const Dashboard = () => {
     collaborators: ["OAU"],
     commencementYear: 0,
     duration: 0,
-    type : "LOCAL"
+    type: "LOCAL",
   };
   const [isReady, setIsReady] = useState(false);
   const [imageUpload, setImageUpload] = useState(false);
@@ -45,8 +36,8 @@ const Dashboard = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [pdfUrl, setPdfUrl] = useState("");
   const [list, setList] = useState([]);
-  const [deleteStatus, setDelStatus] = useState(false)
-  const [uploadMessage,setUploadMessage] =useState("Upload File")
+  const [deleteStatus, setDelStatus] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState("Upload File");
   let collabText;
   let collabValue = ["OAU"];
 
@@ -54,7 +45,7 @@ const Dashboard = () => {
   const fetchMou = async () => {
     try {
       const response = await axios.get(
-        "https://linkages-backend.onrender.com/api/v1/memorandums?limit=4",
+        "https://api.linkagesagreements.oauife.edu.ng/api/v1/memorandums?limit=4",
         {
           headers: {
             "Content-Type": "application/json",
@@ -88,13 +79,13 @@ const Dashboard = () => {
 
     try {
       // Upload the file
-      setUploadMessage("Generating file please wait...")
+      setUploadMessage("Generating file please wait...");
       await uploadBytes(storageRef, pdfFile);
 
       // Get the file's URL
       const url = await getDownloadURL(storageRef);
       setPdfUrl(url);
-      setUploadMessage("File link generated")
+      setUploadMessage("File link generated");
     } catch (error) {
       console.error("Error uploading file:", error);
       alert("Upload failed");
@@ -103,14 +94,14 @@ const Dashboard = () => {
 
   const deleteMemorandum = async (id) => {
     try {
-        setDelStatus(true)
-        console.log("the starting...")
+      setDelStatus(true);
+      console.log("the starting...");
       const response = await axios.delete(
-        `https://linkages-backend.onrender.com/api/v1/memorandum/${id}`,
+        `https://api.linkagesagreements.oauife.edu.ng/api/v1/memorandum/${id}`,
         {
           headers: {
             "Content-Type": "application/json", // Include headers if necessary
-            'Authorization': `Bearer ${token}`, // Include this if authentication is required
+            Authorization: `Bearer ${token}`, // Include this if authentication is required
           },
         }
       );
@@ -118,11 +109,12 @@ const Dashboard = () => {
       if (response.status === 200) {
         const result = response.data;
         // console.log("Memorandum deleted successfully:", response.data);
-        setDelStatus(false)
-        console.log(result)
-        const recent = list.filter(item => item._id !== result.data.memorandum._id);
+        setDelStatus(false);
+        console.log(result);
+        const recent = list.filter(
+          (item) => item._id !== result.data.memorandum._id
+        );
         setList(recent);
-        
       } else {
         console.log("Failed to delete memorandum:", response.status);
       }
@@ -157,7 +149,7 @@ const Dashboard = () => {
     const token = JSON.parse(localStorage.getItem("apiResponse")).data.token;
     try {
       const response = await axios.post(
-        "https://linkages-backend.onrender.com/api/v1/memorandum",
+        "https://api.linkagesagreements.oauife.edu.ng/api/v1/memorandum",
         mouData,
         {
           headers: {
@@ -358,19 +350,24 @@ const Dashboard = () => {
     );
   };
   function displayDayDateYear(timestamp) {
-  const date = new Date(timestamp);
-  
-  // Options for formatting: only display weekday, day of the month, and year
-  const options = { weekday: 'long', year: 'numeric',month: 'long', day: 'numeric' };
-  
-  // Format the date according to the options
-  const formattedDate = date.toLocaleDateString('en-US', options);
+    const date = new Date(timestamp);
 
-  return formattedDate;
-}
-function limitTo15Chars(str) {
-  return str.length > 40 ? str.slice(0, 37) + '...' : str;
-}
+    // Options for formatting: only display weekday, day of the month, and year
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    // Format the date according to the options
+    const formattedDate = date.toLocaleDateString("en-US", options);
+
+    return formattedDate;
+  }
+  function limitTo15Chars(str) {
+    return str.length > 40 ? str.slice(0, 37) + "..." : str;
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("apiResponse");
@@ -389,8 +386,7 @@ function limitTo15Chars(str) {
     });
   }, []);
   return (
-    <div >
-    
+    <div>
       {deleteStatus && <DeleteProcessing />}
       <div className="w-full lg:w-[80vw] bg-[#F1F1F1] h-[92vh] lg:h-full no-scrollbar overflow-auto  lg:pt-10 lg:pl-20">
         {view ? (
@@ -451,7 +447,7 @@ function limitTo15Chars(str) {
                 <span className="">Upload MOU</span>
               </div>
             </div>
-          
+
             <div className="mt-10 ">
               <h3 className="text-xl mb-4 ml-4 font-semibold">
                 Recently Uploaded
@@ -474,15 +470,27 @@ function limitTo15Chars(str) {
                         <td className="py-4">{idx + 1}</td>
                         <td>
                           {" "}
-                          <FaFileShield size={16} color="#211A79" className="mx-auto" />
+                          <FaFileShield
+                            size={16}
+                            color="#211A79"
+                            className="mx-auto"
+                          />
                         </td>
                         <td>{limitTo15Chars(memo.title)}</td>
-                        <td>{memo.collaborators.map((collab, idx)=><span key={idx}>{collab} </span>)}</td>
+                        <td>
+                          {memo.collaborators.map((collab, idx) => (
+                            <span key={idx}>{collab} </span>
+                          ))}
+                        </td>
                         <td> {displayDayDateYear(memo.createdAt)}</td>
                         <td>
                           {" "}
-                          <MdDelete className="text-red-700 mx-auto cursor-pointer "
-                           onClick={()=>{deleteMemorandum(memo._id)}} />
+                          <MdDelete
+                            className="text-red-700 mx-auto cursor-pointer "
+                            onClick={() => {
+                              deleteMemorandum(memo._id);
+                            }}
+                          />
                         </td>
                       </tr>
                     ))}
@@ -499,14 +507,15 @@ function limitTo15Chars(str) {
 
 export default Dashboard;
 
-
 const DeleteProcessing = () => {
   return (
     <div className="absolute bg-black h-[100vh] z-[999] top-0 w-full bg-opacity-70 ">
-     <div className="p-16 bg-white w-fit mt-32 relative mx-auto rounded-sm">
-     <p className="font-semibold text-red-600">Deleting file please wait...</p>
-     <img src="fade.gif" alt="" className="mx-auto mt-4"/>
-     </div>
+      <div className="p-16 bg-white w-fit mt-32 relative mx-auto rounded-sm">
+        <p className="font-semibold text-red-600">
+          Deleting file please wait...
+        </p>
+        <img src="fade.gif" alt="" className="mx-auto mt-4" />
+      </div>
     </div>
   );
 };

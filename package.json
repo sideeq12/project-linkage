@@ -44,5 +44,5 @@
   "devDependencies": {
     "tailwindcss": "^3.4.4"
   },
-  "proxy": "https://linkages-backend.onrender.com/"
+  "proxy": "https://api.linkagesagreements.oauife.edu.ng/"
 }
