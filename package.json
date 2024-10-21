@@ -43,6 +43,6 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.4"
-  },
-  "proxy": "https://api.linkagesagreements.oauife.edu.ng/"
+  }
+
 }
